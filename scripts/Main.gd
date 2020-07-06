@@ -1,59 +1,69 @@
 extends Node2D
 
-onready var canvas = $MyCanvas
+onready var canvas = $PixelCanvas
 onready var cursor = $Cursor
+onready var helper_layer = $HelperLayer
 
-var last_draw:Vector2 = Vector2(-1, -1) #中间值，用于记录最后一次绘制的位置
+onready var paint_tool:PaintTool = Pencil.new(canvas, helper_layer, Color.black)
 
-var color1: Color = Color.black
-var color2: Color = Color.transparent
+func _ready():
+	var s = canvas.get_bitmap_size()
+	helper_layer.canvas_init(s.x, s.y)
 
 func update_info():
-	var mpos = get_canvas_pixel_position()
+	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
 	var s = "mouse position: %.2f, %.2f"%[mpos.x, mpos.y]
 	$GUI/VBoxContainer2/VBoxContainer/Line2.text = s
-	
+
 func _process(_delta):
 	update_info()
 	update_cursor()
-	pencil()
-
-func get_canvas_pixel_position() -> Vector2:
-	var mpos = get_global_mouse_position()
-	var half_canvas = canvas.get_bitmap_size() / 2
-	mpos /= canvas.scale.x
-	mpos += half_canvas
-	mpos.x = floor(mpos.x)
-	mpos.y = floor(mpos.y)
-	return mpos
+	paint_tool.paint_tool_update(get_global_mouse_position())
 
 #更新指针的位置
 func update_cursor():
-	var tpos = (get_canvas_pixel_position() - canvas.get_bitmap_size() / 2) * 8
+	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
+	if not canvas.get_bitmap_rect().has_point(mpos): return
+	var tpos = (mpos - canvas.get_bitmap_size() / 2) * canvas.canvas_scale
 	$Tween.interpolate_property(cursor, "position", null, tpos, 0.037, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 
-#画笔
-#TODO
-#目前待解决的问题是：当鼠标移动过快时，笔画会出现不连续的现象
-#需要做的事情是编写线性插值算法，补充中间漏掉的点
-func pencil():
-	var flag = false
-	var color = color2
-	if Input.is_action_pressed("right_select"):
-		flag = true
-	elif Input.is_action_pressed("left_select"):
-		flag = true
-		color = color1
-	if flag:
-		#获取画布像素坐标
-		var mpos = get_canvas_pixel_position()
-		if mpos == last_draw: return
-		if not canvas.is_valid_pixelv(mpos): return
-		last_draw = mpos
-		canvas.set_pixelv(mpos, color)
-
-
-#改变画笔颜色测试
 func _on_ColorPicker_color_changed(color):
-	color1 = color
+	paint_tool.set_color(color)
+
+func _on_Button_pressed():
+	canvas.save_as_png()
+
+func _on_Button2_pressed():
+	canvas.open_png()
+
+func _on_Button3_pressed():
+	canvas.generate_chaos_bitmap()
+
+func _on_Button4_pressed():
+	canvas.switch_grid_display()
+
+func _on_Button6_pressed():
+	paint_tool = Pencil.new(canvas, helper_layer, Color.black)
+
+func _on_Button5_pressed():
+	paint_tool = Line.new(canvas, helper_layer, Color.black)
+
+func _on_PixelCanvas_bitmap_init(s:Vector2):
+	if not helper_layer: return
+	helper_layer.call_deferred("canvas_init", s.x, s.y)
+
+func _on_Button9_pressed():
+	canvas.clear()
+
+func _on_Button10_pressed():
+	var s = Vector2(16, 16)
+	s.x += randi() % 64
+	s.y += randi() % 64
+	canvas.canvas_init(s.x, s.y)
+
+func _on_Button8_pressed():
+	paint_tool = FilledBox.new(canvas, helper_layer, Color.black)
+
+func _on_Button7_pressed():
+	paint_tool = BoxOutline.new(canvas, helper_layer, Color.black)

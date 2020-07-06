@@ -8,15 +8,44 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "PaintTool",
+"class": "BoxOutline",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/BoxOutline.gd"
+}, {
+"base": "PaintTool",
+"class": "FilledBox",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/FilledBox.gd"
+}, {
+"base": "PaintTool",
+"class": "Line",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/Line.gd"
+}, {
+"base": "Reference",
+"class": "PaintTool",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/PaintTool.gd"
+}, {
+"base": "PaintTool",
+"class": "Pencil",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/Pencil.gd"
+} ]
 _global_script_class_icons={
-
+"BoxOutline": "",
+"FilledBox": "",
+"Line": "",
+"PaintTool": "",
+"Pencil": ""
 }
 
 [application]
 
 config/name="PixelEditor"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://assets/icon.png"
 
 [display]
