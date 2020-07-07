@@ -82,10 +82,10 @@ __meta__ = {
 [node name="ColorPicker" type="ColorPicker" parent="tempGUI"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -633.0
-margin_top = -212.0
-margin_right = -314.0
-margin_bottom = 304.0
+margin_left = -625.0
+margin_top = -204.0
+margin_right = -306.0
+margin_bottom = 312.0
 mouse_default_cursor_shape = 3
 theme = ExtResource( 5 )
 deferred_mode = true
@@ -153,6 +153,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button11" type="Button" parent="tempGUI"]
+margin_left = 335.0
+margin_top = 111.0
+margin_right = 411.0
+margin_bottom = 140.0
+text = "撤销"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button12" type="Button" parent="tempGUI"]
+margin_left = 335.0
+margin_top = 140.0
+margin_right = 411.0
+margin_bottom = 169.0
+text = "恢复"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button5" type="Button" parent="tempGUI"]
 margin_left = -78.0
 margin_top = -330.0
@@ -201,6 +221,8 @@ anchor_bottom = 1.0
 mouse_filter = 2
 theme = ExtResource( 5 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -252,6 +274,7 @@ __meta__ = {
 }
 
 [node name="PixelCanvas" parent="." instance=ExtResource( 1 )]
+record_history = true
 
 [node name="HelperLayer" parent="." instance=ExtResource( 1 )]
 
@@ -295,6 +318,8 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="pressed" from="tempGUI/Button4" to="." method="_on_Button4_pressed"]
 [connection signal="pressed" from="tempGUI/Button9" to="." method="_on_Button9_pressed"]
 [connection signal="pressed" from="tempGUI/Button10" to="." method="_on_Button10_pressed"]
+[connection signal="pressed" from="tempGUI/Button11" to="." method="_on_Button11_pressed"]
+[connection signal="pressed" from="tempGUI/Button12" to="." method="_on_Button12_pressed"]
 [connection signal="pressed" from="tempGUI/Button5" to="." method="_on_Button5_pressed"]
 [connection signal="pressed" from="tempGUI/Button7" to="." method="_on_Button7_pressed"]
 [connection signal="pressed" from="tempGUI/Button8" to="." method="_on_Button8_pressed"]

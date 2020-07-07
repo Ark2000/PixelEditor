@@ -67,3 +67,10 @@ func _on_Button8_pressed():
 
 func _on_Button7_pressed():
 	paint_tool = BoxOutline.new(canvas, helper_layer, Color.black)
+
+
+func _on_Button11_pressed():
+	canvas.undo()
+
+func _on_Button12_pressed():
+	canvas.redo()
