@@ -9,17 +9,32 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "PaintTool",
+"base": "GeometryTool",
 "class": "BoxOutline",
 "language": "GDScript",
 "path": "res://scripts/paint_tools/BoxOutline.gd"
 }, {
-"base": "PaintTool",
+"base": "Panel",
+"class": "ColorPalette",
+"language": "GDScript",
+"path": "res://scripts/ColorPalette.gd"
+}, {
+"base": "Object",
+"class": "FileManager",
+"language": "GDScript",
+"path": "res://scripts/FileManager.gd"
+}, {
+"base": "GeometryTool",
 "class": "FilledBox",
 "language": "GDScript",
 "path": "res://scripts/paint_tools/FilledBox.gd"
 }, {
 "base": "PaintTool",
+"class": "GeometryTool",
+"language": "GDScript",
+"path": "res://scripts/paint_tools/GeometryTool.gd"
+}, {
+"base": "GeometryTool",
 "class": "Line",
 "language": "GDScript",
 "path": "res://scripts/paint_tools/Line.gd"
@@ -36,7 +51,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BoxOutline": "",
+"ColorPalette": "",
+"FileManager": "",
 "FilledBox": "",
+"GeometryTool": "",
 "Line": "",
 "PaintTool": "",
 "Pencil": ""

@@ -11,6 +11,7 @@ export var record_history = false
 var history_pointer #指向最近的一次历史记录
 var show_grid := false
 var grid_size := 1
+var file_path
 
 var bitmap_cache: Array
 var bitmap: PoolColorArray
@@ -45,6 +46,13 @@ func is_valid_pixel(x, y) -> bool:
 	return true
 func is_valid_pixelv(p:Vector2) -> bool:
 	return is_valid_pixel(int(p.x), int(p.y))
+	
+func get_bitmap_copy() -> PoolColorArray:
+	return bitmap
+	
+func set_bitmap(m:PoolColorArray):
+	bitmap = m
+	emit_signal("bitmap_changed")
 
 #setget pixel
 func set_pixel(x, y, c:Color, esignal=true):
@@ -66,6 +74,8 @@ func get_bitmap_rect():
 	rect.position = Vector2(0, 0)
 	rect.size = Vector2(width, height)
 	return rect
+func set_file_path(s:String):
+	file_path = s
 	
 func switch_grid_display():
 	show_grid = !show_grid
@@ -109,8 +119,12 @@ func draw_grid():
 	for y in range(grid_size, height, grid_size):
 		draw_line(Vector2(0, y), Vector2(width, y), grid_color)
 		
-func save_as_png(save_path:String = "user://save.png"):
+func save_as_png():
 	#简单粗暴的方法，直接套API
+	var save_path = "user://save.png"
+	if file_path != null:
+		save_path = file_path
+
 	var image = Image.new()
 	image.create(width, height, false, Image.FORMAT_RGBA8)
 	image.lock()
@@ -118,6 +132,7 @@ func save_as_png(save_path:String = "user://save.png"):
 		for x in range(width):
 			image.set_pixel(x, y, get_pixel(x, y))
 	image.unlock()
+	
 	image.save_png(save_path)
 	
 func open_png(open_path:String = "user://icon.png"):
@@ -158,7 +173,8 @@ static func bresenham(p1:Vector2, p2:Vector2) -> PoolVector2Array:
 			error += deltax
 	return set
 
-func set_pixel_line(p0:Vector2, p1:Vector2, color:Color):
+#返回值代表画布是否发生改变
+func set_pixel_line(p0:Vector2, p1:Vector2, color:Color) -> bool:
 	var flag = false
 	var interpolation = bresenham(p0, p1)
 	for p in interpolation:
@@ -167,18 +183,20 @@ func set_pixel_line(p0:Vector2, p1:Vector2, color:Color):
 			set_pixelv(p, color, false)
 	if flag:
 		emit_signal("bitmap_changed")
-		take_snapshot("set line")
+		return true
+	return false
 	
-func set_pixel_filled_rect(rect:Rect2, color:Color):
+func set_pixel_filled_rect(rect:Rect2, color:Color) -> bool:
 	var intersaction = rect.clip(get_bitmap_rect())
 	for y in range(intersaction.position.y, intersaction.end.y):
 		for x in range(intersaction.position.x, intersaction.end.x):
 			set_pixelv(Vector2(x, y), color, false)
 	if intersaction.size.x > 0 or intersaction.size.y > 0:
 		emit_signal("bitmap_changed")
-		take_snapshot("set filled rect")
+		return true
+	return false
 
-func set_pixel_rect(rect:Rect2, color: Color):
+func set_pixel_rect(rect:Rect2, color: Color) -> bool:
 	var flag = false
 	for x in range(rect.position.x, rect.end.x):
 		if is_valid_pixel(x, rect.position.y):
@@ -197,9 +215,10 @@ func set_pixel_rect(rect:Rect2, color: Color):
 	
 	if flag:
 		emit_signal("bitmap_changed")
-		take_snapshot("set rect")
+		return true
+	return false
 
-func set_pixels(points:PoolVector2Array, c:Color):
+func set_pixels(points:PoolVector2Array, c:Color) -> bool:
 	var flag = false
 	for p in points:
 		if is_valid_pixelv(p):
@@ -207,7 +226,8 @@ func set_pixels(points:PoolVector2Array, c:Color):
 			set_pixelv(p, c, false)
 	if flag:
 		emit_signal("bitmap_changed")
-		take_snapshot("set pixels")
+		return true
+	return false
 
 func clear():
 	for i in range(width * height):

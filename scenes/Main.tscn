@@ -1,14 +1,15 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/PixelCanvas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Focus.gd" type="Script" id=3]
 [ext_resource path="res://assets/ui/select.png" type="Texture" id=4]
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=5]
-[ext_resource path="res://scripts/Label1.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ColorPalette/ColorPalette.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/shader/glow.shader" type="Shader" id=7]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=8]
 [ext_resource path="res://assets/ui/cursor.png" type="Texture" id=9]
+[ext_resource path="res://scenes/ui/MenuBar.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -75,20 +76,6 @@ script = ExtResource( 8 )
 margin_right = 40.0
 margin_bottom = 40.0
 theme = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorPicker" type="ColorPicker" parent="tempGUI"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -625.0
-margin_top = -204.0
-margin_right = -306.0
-margin_bottom = 312.0
-mouse_default_cursor_shape = 3
-theme = ExtResource( 5 )
-deferred_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -213,9 +200,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorPalette" parent="tempGUI" instance=ExtResource( 6 )]
+margin_left = -363.453
+margin_top = -127.279
+margin_right = -327.453
+margin_bottom = 160.721
+
 [node name="GUI" type="CanvasLayer" parent="."]
 
+[node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
+
+[node name="MenuButton" parent="GUI/MenuBar/HBoxContainer" index="0"]
+items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "退出", null, 0, false, false, 1, 0, null, "", false ]
+
+[node name="MenuButton2" parent="GUI/MenuBar/HBoxContainer" index="1"]
+items = [ "关于", null, 0, false, false, 0, 0, null, "", false ]
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="GUI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -239,7 +241,6 @@ __meta__ = {
 margin_right = 1024.0
 margin_bottom = 29.0
 theme = ExtResource( 5 )
-script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -311,7 +312,6 @@ offset = Vector2( -192, -192 )
 autoplay = "cursor_flashing"
 playback_speed = 0.5
 anims/cursor_flashing = SubResource( 4 )
-[connection signal="color_changed" from="tempGUI/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
 [connection signal="pressed" from="tempGUI/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="tempGUI/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="tempGUI/Button3" to="." method="_on_Button3_pressed"]
@@ -324,5 +324,9 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="pressed" from="tempGUI/Button7" to="." method="_on_Button7_pressed"]
 [connection signal="pressed" from="tempGUI/Button8" to="." method="_on_Button8_pressed"]
 [connection signal="pressed" from="tempGUI/Button6" to="." method="_on_Button6_pressed"]
+[connection signal="color_selected" from="tempGUI/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
+[connection signal="form_submit" from="GUI/MenuBar/new_file_pop_window" to="." method="_on_new_file_pop_window_form_submit"]
 [connection signal="bitmap_init" from="PixelCanvas" to="." method="_on_PixelCanvas_bitmap_init"]
-[connection signal="state_changed" from="Focus" to="GUI/VBoxContainer2/VBoxContainer/Line1" method="_on_Focus_state_changed"]
+[connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]
+
+[editable path="GUI/MenuBar"]

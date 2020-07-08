@@ -6,6 +6,8 @@ onready var helper_layer = $HelperLayer
 
 onready var paint_tool:PaintTool = Pencil.new(canvas, helper_layer, Color.black)
 
+var left_color := Color.transparent
+
 func _ready():
 	var s = canvas.get_bitmap_size()
 	helper_layer.canvas_init(s.x, s.y)
@@ -14,6 +16,9 @@ func update_info():
 	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
 	var s = "mouse position: %.2f, %.2f"%[mpos.x, mpos.y]
 	$GUI/VBoxContainer2/VBoxContainer/Line2.text = s
+	
+func _on_Focus_state_changed(s:String):
+	$GUI/VBoxContainer2/VBoxContainer/Line1.text = s
 
 func _process(_delta):
 	update_info()
@@ -28,9 +33,6 @@ func update_cursor():
 	$Tween.interpolate_property(cursor, "position", null, tpos, 0.037, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 
-func _on_ColorPicker_color_changed(color):
-	paint_tool.set_color(color)
-
 func _on_Button_pressed():
 	canvas.save_as_png()
 
@@ -44,10 +46,10 @@ func _on_Button4_pressed():
 	canvas.switch_grid_display()
 
 func _on_Button6_pressed():
-	paint_tool = Pencil.new(canvas, helper_layer, Color.black)
+	paint_tool = Pencil.new(canvas, helper_layer, left_color)
 
 func _on_Button5_pressed():
-	paint_tool = Line.new(canvas, helper_layer, Color.black)
+	paint_tool = Line.new(canvas, helper_layer, left_color)
 
 func _on_PixelCanvas_bitmap_init(s:Vector2):
 	if not helper_layer: return
@@ -63,10 +65,10 @@ func _on_Button10_pressed():
 	canvas.canvas_init(s.x, s.y)
 
 func _on_Button8_pressed():
-	paint_tool = FilledBox.new(canvas, helper_layer, Color.black)
+	paint_tool = FilledBox.new(canvas, helper_layer, left_color)
 
 func _on_Button7_pressed():
-	paint_tool = BoxOutline.new(canvas, helper_layer, Color.black)
+	paint_tool = BoxOutline.new(canvas, helper_layer, left_color)
 
 
 func _on_Button11_pressed():
@@ -74,3 +76,14 @@ func _on_Button11_pressed():
 
 func _on_Button12_pressed():
 	canvas.redo()
+
+
+func _on_ColorPalette_color_selected(c:Color):
+	left_color = c
+	paint_tool.set_color(c)
+
+
+func _on_new_file_pop_window_form_submit(form):
+	$tempGUI/ColorPalette.set_colors_s(FileManager.read_file_string(form.palette))
+	canvas.canvas_init(form.w, form.h)
+	canvas.set_file_path(form.file)
