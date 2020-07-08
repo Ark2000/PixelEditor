@@ -277,8 +277,6 @@ __meta__ = {
 [node name="PixelCanvas" parent="." instance=ExtResource( 1 )]
 record_history = true
 
-[node name="HelperLayer" parent="." instance=ExtResource( 1 )]
-
 [node name="Focus" type="Position2D" parent="."]
 script = ExtResource( 3 )
 
@@ -326,7 +324,6 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="pressed" from="tempGUI/Button6" to="." method="_on_Button6_pressed"]
 [connection signal="color_selected" from="tempGUI/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
 [connection signal="form_submit" from="GUI/MenuBar/new_file_pop_window" to="." method="_on_new_file_pop_window_form_submit"]
-[connection signal="bitmap_init" from="PixelCanvas" to="." method="_on_PixelCanvas_bitmap_init"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]
 
 [editable path="GUI/MenuBar"]

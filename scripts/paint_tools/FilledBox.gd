@@ -1,8 +1,8 @@
 extends GeometryTool
 class_name FilledBox
 
-func _init(canvas_:Node, layer:Node, color_ = Color.black):
-	init(canvas_, layer, color_)
+func _init(canvas_:Node, color_ = Color.black):
+	init(canvas_, color_)
 
 func draw_api():
 	var rect = Rect2()

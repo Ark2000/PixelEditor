@@ -2,15 +2,10 @@ extends Node2D
 
 onready var canvas = $PixelCanvas
 onready var cursor = $Cursor
-onready var helper_layer = $HelperLayer
 
-onready var paint_tool:PaintTool = Pencil.new(canvas, helper_layer, Color.black)
+onready var paint_tool:PaintTool = Pencil.new(canvas, Color.black)
 
 var left_color := Color.transparent
-
-func _ready():
-	var s = canvas.get_bitmap_size()
-	helper_layer.canvas_init(s.x, s.y)
 
 func update_info():
 	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
@@ -46,14 +41,10 @@ func _on_Button4_pressed():
 	canvas.switch_grid_display()
 
 func _on_Button6_pressed():
-	paint_tool = Pencil.new(canvas, helper_layer, left_color)
+	paint_tool = Pencil.new(canvas, left_color)
 
 func _on_Button5_pressed():
-	paint_tool = Line.new(canvas, helper_layer, left_color)
-
-func _on_PixelCanvas_bitmap_init(s:Vector2):
-	if not helper_layer: return
-	helper_layer.call_deferred("canvas_init", s.x, s.y)
+	paint_tool = Line.new(canvas, left_color)
 
 func _on_Button9_pressed():
 	canvas.clear()
@@ -65,10 +56,10 @@ func _on_Button10_pressed():
 	canvas.canvas_init(s.x, s.y)
 
 func _on_Button8_pressed():
-	paint_tool = FilledBox.new(canvas, helper_layer, left_color)
+	paint_tool = FilledBox.new(canvas, left_color)
 
 func _on_Button7_pressed():
-	paint_tool = BoxOutline.new(canvas, helper_layer, left_color)
+	paint_tool = BoxOutline.new(canvas, left_color)
 
 
 func _on_Button11_pressed():

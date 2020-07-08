@@ -6,8 +6,8 @@ var last_color
 var draw_flag = false
 var update_flag = false
 
-func _init(canvas_:Node, layer:Node, color_ = Color.black):
-	init(canvas_, layer, color_)
+func _init(canvas_:Node, color_ = Color.black):
+	init(canvas_, color_)
 
 #传入鼠标坐标
 func paint_tool_update(mpos:Vector2):
