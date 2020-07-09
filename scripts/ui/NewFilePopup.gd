@@ -1,9 +1,8 @@
 extends WindowDialog
+class_name NewFilePopup
 
 const default_path = "user://userarts"
 const palette_path = "user://palettes"
-
-signal form_submit
 
 var err = false
 
@@ -22,7 +21,7 @@ func _on_Button2_pressed():
 func _on_Button_pressed():
 	if err: return
 	var ob = $VBoxContainer/HBoxContainer4/OptionButton
-	emit_signal("form_submit", {
+	get_parent().emit_signal("new_file_form_submit", {
 		"file": default_path + "/" + $VBoxContainer/HBoxContainer/Filename.text + ".png",
 		"palette": palette_path + "/" + ob.get_item_text(ob.get_selected_id()),
 		"w": int($VBoxContainer/HBoxContainer2/W.get_line_edit().text),

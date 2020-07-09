@@ -1,15 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/MenuBar.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui/new_file_pop_window.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/AboutPopup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ui/GridSettings.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.113725, 0.137255, 0.156863, 1 )
 
 [node name="MenuBar" type="Panel"]
 anchor_right = 1.0
 margin_bottom = 29.0
 rect_min_size = Vector2( 0, 29 )
 theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -27,63 +32,30 @@ margin_right = 44.0
 margin_bottom = 29.0
 text = "文件"
 flat = false
-items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "退出", null, 0, false, false, 1, 0, null, "", false ]
+items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "保存文件", null, 0, false, false, 1, 0, null, "", false, "退出", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="MenuButton2" type="MenuButton" parent="HBoxContainer"]
+[node name="MenuButton3" type="MenuButton" parent="HBoxContainer"]
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 29.0
+text = "视图"
+items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton2" type="MenuButton" parent="HBoxContainer"]
+margin_left = 96.0
+margin_right = 140.0
+margin_bottom = 29.0
 text = "帮助"
 flat = false
-items = [ "关于", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "关于", null, 0, false, false, 0, 0, null, "", false, "资源文件夹", null, 0, false, false, 1, 0, null, "", false, "浏览源代码", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="new_file_pop_window" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="AboutPopup" parent="." instance=ExtResource( 4 )]
-visible = true
-margin_right = 363.0
-margin_bottom = 249.0
-rect_min_size = Vector2( 540, 300 )
-window_title = "关于"
-resizable = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="AboutPopup"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-bbcode_enabled = true
-bbcode_text = "更新日志
-- 2020/07/08
-	- 增加了新的调色板，可以加载色彩方案
-- 2020/07/07
-	- 增加了undo，redo功能
-- 2020/07/06
-	- 铅笔工具现在可以画出连续的线了（使用bresenham算法进行插值）
-	- 添加了直线工具
-	- 添加了填充矩形工具
-	- 添加了矩形边框工具
-	- [s]增加了更多的临时按钮，去掉了之前的ui[/s]
-- 2020/07/03
-	- 自由缩放画布，拖拽画布移动视图
-	- 网格参考线
-	- 下拉式的调色板（实际体验不是很好，弹来弹去的很烦）
-	- 保存/打开PNG文件
-	- 基本的铅笔工具（存在轨迹不连续的问题）
-	- [s]闪闪发光的游标[/s]"
-text = "更新日志
-- 2020/07/08
-	- 增加了新的调色板，可以加载色彩方案
-- 2020/07/07
-	- 增加了undo，redo功能
-- 2020/07/06
-	- 铅笔工具现在可以画出连续的线了（使用bresenham算法进行插值）
-	- 添加了直线工具
-	- 添加了填充矩形工具
-	- 添加了矩形边框工具
-	- 增加了更多的临时按钮，去掉了之前的ui
-- 2020/07/03
-	- 自由缩放画布，拖拽画布移动视图
-	- 网格参考线
-	- 下拉式的调色板（实际体验不是很好，弹来弹去的很烦）
-	- 保存/打开PNG文件
-	- 基本的铅笔工具（存在轨迹不连续的问题）
-	- 闪闪发光的游标"
+[node name="GridSettings" parent="." instance=ExtResource( 5 )]
+visible = false

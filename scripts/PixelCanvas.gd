@@ -4,14 +4,16 @@ signal bitmap_changed
 signal bitmap_init
 
 const canvas_scale = 8
-const grid_color = Color.cyan
 const max_history_cache = 100 #保留的历史数（用于回撤功能）
 
 export var record_history = false
 var history_pointer #指向最近的一次历史记录
+var file_path = "user://unnamed.png"
+
+const grid_color = Color.cyan
 var show_grid := false
-var grid_size := 1
-var file_path
+var grid_size := Vector2(4, 4)
+var grid_offset := Vector2(0, 0)
 
 var bitmap_cache: Array
 var bitmap: PoolColorArray
@@ -80,6 +82,21 @@ func set_file_path(s:String):
 func switch_grid_display():
 	show_grid = !show_grid
 	emit_signal("bitmap_changed")
+	
+func set_show_grid(val):
+	if val != show_grid:
+		emit_signal("bitmap_changed")
+	show_grid = val
+	
+func set_grid_size(val):
+	if val != grid_size:
+		emit_signal("bitmap_changed")
+	grid_size = val
+	
+func set_grid_offset(val):
+	if val != grid_offset:
+		emit_signal("bitmap_changed")
+	grid_offset = val
 
 #将传入的全局坐标转化为位图坐标
 func global_to_canvas_position(var mpos:Vector2) -> Vector2:
@@ -114,17 +131,14 @@ func draw_grid():
 	draw_line(Vector2(width, 0), Vector2(width, height), grid_color)
 	#画网格
 	if not show_grid: return
-	for x in range(grid_size, width, grid_size):
+	print(grid_size.x, " ", width)
+	for x in range(grid_offset.x, width, grid_size.x):
 		draw_line(Vector2(x, 0), Vector2(x, height), grid_color)
-	for y in range(grid_size, height, grid_size):
+	for y in range(grid_offset.y, height, grid_size.y):
 		draw_line(Vector2(0, y), Vector2(width, y), grid_color)
-		
+
 func save_as_png():
 	#简单粗暴的方法，直接套API
-	var save_path = "user://save.png"
-	if file_path != null:
-		save_path = file_path
-
 	var image = Image.new()
 	image.create(width, height, false, Image.FORMAT_RGBA8)
 	image.lock()
@@ -133,7 +147,7 @@ func save_as_png():
 			image.set_pixel(x, y, get_pixel(x, y))
 	image.unlock()
 	
-	image.save_png(save_path)
+	image.save_png(file_path)
 	
 func open_png(open_path:String = "user://icon.png"):
 	var image = Image.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/PixelCanvas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scripts/Main.gd" type="Script" id=8]
 [ext_resource path="res://assets/ui/cursor.png" type="Texture" id=9]
 [ext_resource path="res://scenes/ui/MenuBar.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/ui/ToolPanel.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/ui/SaveFilePopup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -73,8 +75,11 @@ tracks/1/keys = {
 script = ExtResource( 8 )
 
 [node name="tempGUI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 520.285
+margin_top = -261.924
+margin_right = 560.285
+margin_bottom = -221.924
+mouse_filter = 2
 theme = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -160,61 +165,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button5" type="Button" parent="tempGUI"]
-margin_left = -78.0
-margin_top = -330.0
-margin_right = -2.0
-margin_bottom = -301.0
-text = "直线"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button7" type="Button" parent="tempGUI"]
-margin_left = 74.0
-margin_top = -330.0
-margin_right = 150.0
-margin_bottom = -301.0
-text = "矩形框"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button8" type="Button" parent="tempGUI"]
-margin_left = -2.0
-margin_top = -330.0
-margin_right = 74.0
-margin_bottom = -301.0
-text = "矩形"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button6" type="Button" parent="tempGUI"]
-margin_left = -154.0
-margin_top = -330.0
-margin_right = -78.0
-margin_bottom = -301.0
-text = "铅笔"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorPalette" parent="tempGUI" instance=ExtResource( 6 )]
-margin_left = -363.453
-margin_top = -127.279
-margin_right = -327.453
-margin_bottom = 160.721
-
 [node name="GUI" type="CanvasLayer" parent="."]
-
-[node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
-
-[node name="MenuButton" parent="GUI/MenuBar/HBoxContainer" index="0"]
-items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "退出", null, 0, false, false, 1, 0, null, "", false ]
-
-[node name="MenuButton2" parent="GUI/MenuBar/HBoxContainer" index="1"]
-items = [ "关于", null, 0, false, false, 0, 0, null, "", false ]
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GUI"]
 visible = false
@@ -254,6 +205,29 @@ script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+anchor_top = 0.048
+anchor_bottom = 1.0
+margin_top = 0.199999
+margin_right = 76.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToolPanel" parent="GUI/VBoxContainer" instance=ExtResource( 11 )]
+margin_bottom = 112.0
+rect_min_size = Vector2( 64, 112 )
+
+[node name="ColorPalette" parent="GUI/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 116.0
+margin_bottom = 571.0
+size_flags_vertical = 3
+
+[node name="SaveFilePopup" parent="GUI" instance=ExtResource( 12 )]
+visible = false
+
+[node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
 
 [node name="Bg" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -318,12 +292,11 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="pressed" from="tempGUI/Button10" to="." method="_on_Button10_pressed"]
 [connection signal="pressed" from="tempGUI/Button11" to="." method="_on_Button11_pressed"]
 [connection signal="pressed" from="tempGUI/Button12" to="." method="_on_Button12_pressed"]
-[connection signal="pressed" from="tempGUI/Button5" to="." method="_on_Button5_pressed"]
-[connection signal="pressed" from="tempGUI/Button7" to="." method="_on_Button7_pressed"]
-[connection signal="pressed" from="tempGUI/Button8" to="." method="_on_Button8_pressed"]
-[connection signal="pressed" from="tempGUI/Button6" to="." method="_on_Button6_pressed"]
-[connection signal="color_selected" from="tempGUI/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
-[connection signal="form_submit" from="GUI/MenuBar/new_file_pop_window" to="." method="_on_new_file_pop_window_form_submit"]
+[connection signal="redo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_redo_btn_pressed"]
+[connection signal="selection_update" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_selection_update"]
+[connection signal="undo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_undo_btn_pressed"]
+[connection signal="color_selected" from="GUI/VBoxContainer/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
+[connection signal="grid_settings_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_grid_settings_form_submit"]
+[connection signal="new_file_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_new_file_form_submit"]
+[connection signal="save_file" from="GUI/MenuBar" to="." method="_on_MenuBar_save_file"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]
-
-[editable path="GUI/MenuBar"]

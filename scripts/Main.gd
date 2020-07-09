@@ -7,6 +7,8 @@ onready var paint_tool:PaintTool = Pencil.new(canvas, Color.black)
 
 var left_color := Color.transparent
 
+onready var cpalette = $GUI/VBoxContainer/ColorPalette
+
 func update_info():
 	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
 	var s = "mouse position: %.2f, %.2f"%[mpos.x, mpos.y]
@@ -18,6 +20,8 @@ func _on_Focus_state_changed(s:String):
 func _process(_delta):
 	update_info()
 	update_cursor()
+	
+func _unhandled_input(_event):
 	paint_tool.paint_tool_update(get_global_mouse_position())
 
 #更新指针的位置
@@ -40,12 +44,6 @@ func _on_Button3_pressed():
 func _on_Button4_pressed():
 	canvas.switch_grid_display()
 
-func _on_Button6_pressed():
-	paint_tool = Pencil.new(canvas, left_color)
-
-func _on_Button5_pressed():
-	paint_tool = Line.new(canvas, left_color)
-
 func _on_Button9_pressed():
 	canvas.clear()
 
@@ -55,26 +53,45 @@ func _on_Button10_pressed():
 	s.y += randi() % 64
 	canvas.canvas_init(s.x, s.y)
 
-func _on_Button8_pressed():
-	paint_tool = FilledBox.new(canvas, left_color)
-
-func _on_Button7_pressed():
-	paint_tool = BoxOutline.new(canvas, left_color)
-
-
 func _on_Button11_pressed():
 	canvas.undo()
 
 func _on_Button12_pressed():
 	canvas.redo()
 
-
 func _on_ColorPalette_color_selected(c:Color):
 	left_color = c
 	paint_tool.set_color(c)
 
+func _on_ToolPanel_selection_update(val):
+	if val == ToolPanel.PENCIL:
+		paint_tool = Pencil.new(canvas, left_color)
+	elif val == ToolPanel.RULER:
+		paint_tool = Line.new(canvas, left_color)
+	elif val == ToolPanel.RECT:
+		paint_tool = BoxOutline.new(canvas, left_color)
+	elif val == ToolPanel.RECTS:
+		paint_tool = FilledBox.new(canvas, left_color)
 
-func _on_new_file_pop_window_form_submit(form):
-	$tempGUI/ColorPalette.set_colors_s(FileManager.read_file_string(form.palette))
+func _on_MenuBar_save_file():
+	canvas.save_as_png()
+	$GUI/SaveFilePopup.set_file_path(canvas.file_path)
+	$GUI/SaveFilePopup.popup_centered()
+
+func _on_MenuBar_new_file_form_submit(form):
+	cpalette.set_colors_s(FileManager.read_file_string(form.palette))
+	paint_tool.set_color(cpalette.colors[0])
 	canvas.canvas_init(form.w, form.h)
 	canvas.set_file_path(form.file)
+
+
+func _on_ToolPanel_undo_btn_pressed():
+	canvas.undo()
+
+func _on_ToolPanel_redo_btn_pressed():
+	canvas.redo()
+
+func _on_MenuBar_grid_settings_form_submit(form):
+	canvas.set_show_grid(form.show_grid)
+	canvas.set_grid_size(Vector2(form.w, form.h))
+	canvas.set_grid_offset(Vector2(form.x, form.y))

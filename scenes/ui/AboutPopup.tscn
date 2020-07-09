@@ -1,5 +1,146 @@
-[gd_scene format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/ui/AboutPopup.gd" type="Script" id=2]
+[ext_resource path="res://assets/icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/font/ZiTiGuanJiaHeiTi-1.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+extra_spacing_char = 2
+font_data = ExtResource( 4 )
 
 [node name="AboutPopup" type="WindowDialog"]
-margin_right = 48.0
-margin_bottom = 40.0
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 600, 400 )
+theme = ExtResource( 1 )
+window_title = "About"
+resizable = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_left = 111.0
+margin_right = 489.0
+margin_bottom = 64.0
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 68.0
+margin_top = 4.0
+margin_right = 378.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 1 )
+text = "GodotPixelEditor"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+margin_top = 68.0
+margin_right = 600.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Update" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 36.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "更新日志
+- 2020/07/09
+	- 增加了顶部的菜单条
+	- 优化了调色板的样式
+	- 增加了工具栏
+	- 增加了“网格设置”弹窗
+	- 增加了”保存文件“弹窗
+	- 增加了“关于”弹窗
+- 2020/07/08
+	- 增加了新的调色板，可以加载色彩方案
+- 2020/07/07
+	- 增加了undo，redo功能
+- 2020/07/06
+	- 铅笔工具现在可以画出连续的线了（使用bresenham算法进行插值）
+	- 添加了直线工具
+	- 添加了填充矩形工具
+	- 添加了矩形边框工具
+	- 增加了更多的临时按钮，去掉了之前的ui
+- 2020/07/03
+	- 自由缩放画布，拖拽画布移动视图
+	- 网格参考线
+	- 下拉式的调色板（实际体验不是很好，弹来弹去的很烦）
+	- 保存/打开PNG文件
+	- 基本的铅笔工具（存在轨迹不连续的问题）
+	- 闪闪发光的游标"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Author" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 36.0
+margin_right = -5.0
+margin_bottom = -5.0
+bbcode_enabled = true
+bbcode_text = "k2kra
+
+邮箱： [url]ark2000@foxmail.com[/url]"
+text = "k2kra
+
+邮箱： ark2000@foxmail.com"
+
+[node name="License" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 36.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "MIT License
+
+Copyright (c) 2020 Rey Beebe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE."
+[connection signal="meta_clicked" from="VBoxContainer/TabContainer/Author" to="." method="_on_Author_meta_clicked"]

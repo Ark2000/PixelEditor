@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/paint_tools/BoxOutline.gd"
 }, {
-"base": "Panel",
+"base": "ScrollContainer",
 "class": "ColorPalette",
 "language": "GDScript",
 "path": "res://scripts/ColorPalette.gd"
@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/paint_tools/Line.gd"
 }, {
+"base": "WindowDialog",
+"class": "NewFilePopup",
+"language": "GDScript",
+"path": "res://scripts/ui/NewFilePopup.gd"
+}, {
 "base": "Reference",
 "class": "PaintTool",
 "language": "GDScript",
@@ -48,6 +53,11 @@ _global_script_classes=[ {
 "class": "Pencil",
 "language": "GDScript",
 "path": "res://scripts/paint_tools/Pencil.gd"
+}, {
+"base": "Panel",
+"class": "ToolPanel",
+"language": "GDScript",
+"path": "res://scripts/ui/ToolPanel.gd"
 } ]
 _global_script_class_icons={
 "BoxOutline": "",
@@ -56,8 +66,10 @@ _global_script_class_icons={
 "FilledBox": "",
 "GeometryTool": "",
 "Line": "",
+"NewFilePopup": "",
 "PaintTool": "",
-"Pencil": ""
+"Pencil": "",
+"ToolPanel": ""
 }
 
 [application]

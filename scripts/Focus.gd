@@ -15,7 +15,7 @@ var zoom_value = 1 #中间值，主要用于平滑缩放
 func _ready():
 	emit_signal("state_changed", state_string())
 
-func _input(event):
+func _unhandled_input(event):
 	var flag = false
 	var zoom_delta = 0
 	if Input.is_action_pressed("move_canvas"):
