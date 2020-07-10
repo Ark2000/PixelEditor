@@ -8,12 +8,14 @@ const max_history_cache = 100 #保留的历史数（用于回撤功能）
 
 export var record_history = false
 var history_pointer #指向最近的一次历史记录
-var file_path = "user://unnamed.png"
+var file_name = "unnamed.png"
+var palette_name = "default16"
 
 const grid_color = Color.cyan
 var show_grid := false
 var grid_size := Vector2(4, 4)
 var grid_offset := Vector2(0, 0)
+var bg_color := Color.transparent
 
 var bitmap_cache: Array
 var bitmap: PoolColorArray
@@ -34,7 +36,7 @@ func canvas_init(w: int, h: int):
 	emit_signal("bitmap_changed")
 	#居中摆放画布
 	position = Vector2(-width, -height) * canvas_scale / 2
-	emit_signal("bitmap_init", Vector2(w, h))
+	emit_signal("bitmap_init", Vector2(w, h), position)
 	
 	#清空历史缓存
 	bitmap_cache = []
@@ -71,13 +73,16 @@ func get_pixelv(p: Vector2) -> Color:
 	return get_pixel(int(p.x), int(p.y))
 func get_bitmap_size():
 	return Vector2(width, height)
-func get_bitmap_rect():
+func get_bitmap_rect() -> Rect2:
 	var rect = Rect2()
 	rect.position = Vector2(0, 0)
 	rect.size = Vector2(width, height)
 	return rect
-func set_file_path(s:String):
-	file_path = s
+func set_file_name(s:String):
+	file_name = s
+func set_bg_color(c:Color):
+	bg_color = c
+	emit_signal("bitmap_changed")
 	
 func switch_grid_display():
 	show_grid = !show_grid
@@ -118,6 +123,7 @@ func generate_chaos_bitmap():
 	take_snapshot("generate chaos image")
 	
 func _draw():
+	draw_rect(get_bitmap_rect(), bg_color)
 	for y in range(height):
 		for x in range(width):
 			draw_rect(Rect2(x, y, 1, 1), get_pixel(x, y))
@@ -147,7 +153,7 @@ func save_as_png():
 			image.set_pixel(x, y, get_pixel(x, y))
 	image.unlock()
 	
-	image.save_png(file_path)
+	image.save_png(Globals.USERART_SAVE_FOLDER + file_name)
 	
 func open_png(open_path:String = "user://icon.png"):
 	var image = Image.new()
@@ -243,11 +249,64 @@ func set_pixels(points:PoolVector2Array, c:Color) -> bool:
 		return true
 	return false
 
-func clear():
+#像素填充算法（虽然解决了stackoverflow的问题，但运行速度还是很慢，是一个优化点）
+const _adjs = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
+func flood_fill(p:Vector2, c: Color):
+	var orignal
+	var candidates = PoolVector2Array()
+	if is_valid_pixelv(p):
+		orignal = get_pixelv(p)
+	else:
+		return
+	if orignal == c:
+		return
+	candidates.append(p)
+	while not candidates.empty():
+		var can = candidates[0]
+		candidates.remove(0)
+		if is_valid_pixelv(can) and get_pixelv(can) == orignal:
+			set_pixelv(can, c, false)
+			for a in _adjs:
+				if is_valid_pixelv(can + a) and get_pixelv(can + a) == orignal: 
+					candidates.push_back(can + a)
+	emit_signal("bitmap_changed")
+	
+#整体偏移
+func overall_shift(offset:Vector2):
+	var r1
+	var r2
+	if offset.x > 0:
+		r1 = range(width - offset.x - 1, -1, -1)
+		r2 = range(offset.x)
+	else:
+		r1 = range(-offset.x, width)
+		r2 = range(width + offset.x, width)
+	for y in range(height):
+		for x in r1:
+			set_pixel(x + offset.x, y, get_pixel(x, y), false)
+		for x in r2:
+			set_pixel(x, y, Color.transparent, false)
+	if offset.y > 0:
+		r1 = range(height - offset.y - 1, -1, -1)
+		r2 = range(offset.y)
+	else:
+		r1 = range(-offset.y, height)
+		r2 = range(height + offset.y, height)
+	for x in range(width):
+		for y in r1:
+			set_pixel(x, y + offset.y, get_pixel(x, y), false)
+		for y in r2:
+			set_pixel(x, y, Color.transparent, false)
+	
+	emit_signal("bitmap_changed")
+	return true
+
+func clear(sgl= true):
 	for i in range(width * height):
 		bitmap[i] = Color.transparent
-	emit_signal("bitmap_changed")
-	take_snapshot("clear canvas")
+	if sgl:
+		emit_signal("bitmap_changed")
+		take_snapshot("clear canvas")
 
 #保存当前的图像到历史缓存中
 func take_snapshot(msg = null):

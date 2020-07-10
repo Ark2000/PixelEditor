@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/font/Gamer.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/ui/CanvasFrame.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+extra_spacing_top = -4
+extra_spacing_bottom = 4
+font_data = ExtResource( 2 )
+
+[node name="CanvasFrame" type="Control"]
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="topL" type="Line2D" parent="."]
+scale = Vector2( 1.03922, 1 )
+points = PoolVector2Array( -25, 0, 281, 0 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="bottomL" type="Line2D" parent="."]
+scale = Vector2( 1.03922, 1 )
+points = PoolVector2Array( -25, 256, 281, 256 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="leftL" type="Line2D" parent="."]
+scale = Vector2( 1, 1.04082 )
+points = PoolVector2Array( 0, -25, 0, 281 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="rightL" type="Line2D" parent="."]
+scale = Vector2( 1, 1.04082 )
+points = PoolVector2Array( 256, -25, 256, 281 )
+width = 4.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="toptag" type="Label" parent="."]
+margin_left = 200.0
+margin_top = -34.0
+margin_right = 256.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "32px"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottomtag" type="Label" parent="."]
+margin_top = 256.0
+margin_right = 58.0
+margin_bottom = 290.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "32px"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lefttag" type="Label" parent="."]
+margin_left = -34.0
+margin_top = 56.0
+margin_right = 22.0
+margin_bottom = 90.0
+rect_rotation = -90.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "32px"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="righttag" type="Label" parent="."]
+margin_left = 290.0
+margin_top = 200.0
+margin_right = 346.0
+margin_bottom = 234.0
+rect_rotation = 90.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "32px"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/PixelCanvas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://scenes/ui/MenuBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/ui/ToolPanel.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/ui/SaveFilePopup.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/ui/CanvasFrame.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/ui/CanvasInfo.tscn" type="PackedScene" id=14]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -207,20 +209,19 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
-anchor_top = 0.048
 anchor_bottom = 1.0
-margin_top = 0.199999
+margin_top = 29.0
 margin_right = 76.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ToolPanel" parent="GUI/VBoxContainer" instance=ExtResource( 11 )]
-margin_bottom = 112.0
-rect_min_size = Vector2( 64, 112 )
+rect_min_size = Vector2( 76, 144 )
+size_flags_horizontal = 0
 
 [node name="ColorPalette" parent="GUI/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 116.0
+margin_top = 148.0
 margin_bottom = 571.0
 size_flags_vertical = 3
 
@@ -228,6 +229,11 @@ size_flags_vertical = 3
 visible = false
 
 [node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
+anchor_bottom = 0.048
+margin_bottom = -28.8
+
+[node name="CanvasInfo" parent="GUI" instance=ExtResource( 14 )]
+visible = false
 
 [node name="Bg" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -250,6 +256,9 @@ __meta__ = {
 
 [node name="PixelCanvas" parent="." instance=ExtResource( 1 )]
 record_history = true
+
+[node name="CanvasFrame" parent="." instance=ExtResource( 13 )]
+mouse_filter = 2
 
 [node name="Focus" type="Position2D" parent="."]
 script = ExtResource( 3 )
@@ -296,7 +305,10 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="selection_update" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_selection_update"]
 [connection signal="undo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_undo_btn_pressed"]
 [connection signal="color_selected" from="GUI/VBoxContainer/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
+[connection signal="canvas_info" from="GUI/MenuBar" to="." method="_on_MenuBar_canvas_info"]
 [connection signal="grid_settings_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_grid_settings_form_submit"]
 [connection signal="new_file_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_new_file_form_submit"]
 [connection signal="save_file" from="GUI/MenuBar" to="." method="_on_MenuBar_save_file"]
+[connection signal="set_canvas_bg_color" from="GUI/CanvasInfo" to="." method="_on_CanvasInfo_set_canvas_bg_color"]
+[connection signal="bitmap_init" from="PixelCanvas" to="CanvasFrame" method="_on_PixelCanvas_bitmap_init"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]

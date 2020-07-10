@@ -8,7 +8,9 @@ enum {
 	PENCIL,
 	RULER,
 	RECT,
-	RECTS
+	RECTS,
+	BUCKET,
+	DRAGGER
 }
 
 var current_selected := PENCIL setget set_current_selected
@@ -38,9 +40,16 @@ func _on_RectSButton_pressed():
 	self.current_selected = RECTS
 	selectedbg_move($GridContainer/RectS.rect_position)
 
+func _on_BucketButton_pressed():
+	self.current_selected = BUCKET
+	selectedbg_move($GridContainer/Bucket.rect_position)
+
+func _on_DraggerButton_pressed():
+	self.current_selected = DRAGGER
+	selectedbg_move($GridContainer/Dragger.rect_position)
+
 func _on_Undo_pressed():
 	emit_signal("undo_btn_pressed")
-
 
 func _on_Redo_pressed():
 	emit_signal("redo_btn_pressed")

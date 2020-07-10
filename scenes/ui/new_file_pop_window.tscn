@@ -4,9 +4,7 @@
 [ext_resource path="res://scripts/ui/NewFilePopup.gd" type="Script" id=2]
 [ext_resource path="res://assets/image_test.png" type="Texture" id=3]
 
-
 [node name="new_file_pop_window" type="WindowDialog"]
-visible = true
 margin_right = 326.0
 margin_bottom = 179.0
 rect_min_size = Vector2( 326, 204 )

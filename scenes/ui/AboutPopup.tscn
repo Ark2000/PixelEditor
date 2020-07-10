@@ -11,6 +11,7 @@ extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
 [node name="AboutPopup" type="WindowDialog"]
+visible = true
 margin_right = 600.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 600, 400 )
@@ -70,6 +71,11 @@ margin_top = 36.0
 margin_right = -5.0
 margin_bottom = -5.0
 text = "更新日志
+- 2020/07/10
+	- 增加了画布边框，显示尺寸信息
+	- 增加了“画布信息”弹窗，可以设置画布背景颜色
+	- 增加了油漆桶工具（使用BFS算法，效率较低）
+	- 增加了整体偏移工具
 - 2020/07/09
 	- 增加了顶部的菜单条
 	- 优化了调色板的样式

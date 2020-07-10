@@ -39,7 +39,7 @@ margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 29.0
 text = "视图"
-items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false ]
+items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false, "画布信息", null, 0, false, false, 1, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -53,9 +53,9 @@ flat = false
 items = [ "关于", null, 0, false, false, 0, 0, null, "", false, "资源文件夹", null, 0, false, false, 1, 0, null, "", false, "浏览源代码", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="new_file_pop_window" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="AboutPopup" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="GridSettings" parent="." instance=ExtResource( 5 )]
 visible = false

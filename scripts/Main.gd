@@ -8,6 +8,7 @@ onready var paint_tool:PaintTool = Pencil.new(canvas, Color.black)
 var left_color := Color.transparent
 
 onready var cpalette = $GUI/VBoxContainer/ColorPalette
+onready var canpop = $GUI/CanvasInfo
 
 func update_info():
 	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
@@ -72,18 +73,22 @@ func _on_ToolPanel_selection_update(val):
 		paint_tool = BoxOutline.new(canvas, left_color)
 	elif val == ToolPanel.RECTS:
 		paint_tool = FilledBox.new(canvas, left_color)
+	elif val == ToolPanel.BUCKET:
+		paint_tool = Bucket.new(canvas, left_color)
+	elif val == ToolPanel.DRAGGER:
+		paint_tool = Dragger.new(canvas, left_color)
 
 func _on_MenuBar_save_file():
 	canvas.save_as_png()
-	$GUI/SaveFilePopup.set_file_path(canvas.file_path)
+	$GUI/SaveFilePopup.set_content(Globals.USERART_SAVE_FOLDER, canvas.file_name)
 	$GUI/SaveFilePopup.popup_centered()
 
 func _on_MenuBar_new_file_form_submit(form):
-	cpalette.set_colors_s(FileManager.read_file_string(form.palette))
+	cpalette.set_colors_s(FileManager.read_file_string(Globals.PALETTES_FOLDER + form.palette_name))
 	paint_tool.set_color(cpalette.colors[0])
 	canvas.canvas_init(form.w, form.h)
-	canvas.set_file_path(form.file)
-
+	canvas.set_file_name(form.file_name)
+	canvas.palette_name = form.palette_name
 
 func _on_ToolPanel_undo_btn_pressed():
 	canvas.undo()
@@ -95,3 +100,14 @@ func _on_MenuBar_grid_settings_form_submit(form):
 	canvas.set_show_grid(form.show_grid)
 	canvas.set_grid_size(Vector2(form.w, form.h))
 	canvas.set_grid_offset(Vector2(form.x, form.y))
+
+func _on_MenuBar_canvas_info():
+	canpop.set_bbcode(
+		"文件路径: [color=#44FF44][url]" + Globals.USERART_SAVE_FOLDER + "[/url]" + canvas.file_name + "[/color]\n" + 
+		"调色板路径: [color=#44FF44][url]" + Globals.PALETTES_FOLDER + "[/url]" + canvas.palette_name + "[/color]\n" + 
+		"画布尺寸: " + String(canvas.width) + " * " + String(canvas.height)
+	)
+	canpop.popup_centered()
+
+func _on_CanvasInfo_set_canvas_bg_color(c:Color):
+	canvas.set_bg_color(c)

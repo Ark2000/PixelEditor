@@ -3,6 +3,7 @@ extends Panel
 signal save_file
 signal new_file_form_submit
 signal grid_settings_form_submit
+signal canvas_info
 
 onready var file_section = $HBoxContainer/MenuButton
 onready var help_section = $HBoxContainer/MenuButton2
@@ -34,3 +35,5 @@ func _on_help_section_id_pressed(id:int):
 func _on_view_section_id_pressed(id:int):
 	if id == 0:
 		$GridSettings.popup_centered()
+	elif id == 1:
+		emit_signal("canvas_info")
