@@ -106,6 +106,7 @@ _global_script_class_icons={
 
 config/name="PixelEditor"
 run/main_scene="res://scenes/Main.tscn"
+run/low_processor_mode=true
 config/icon="res://assets/icon.png"
 
 [importer_defaults]
