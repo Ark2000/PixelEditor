@@ -11,6 +11,7 @@ func _ready():
 	for palette in palettes:
 		pob.add_item(palette)
 	load_palette_preview(0)
+	_on_Filename_text_changed($VBoxContainer/HBoxContainer/Filename.text + ".png")
 
 func _on_Button2_pressed():
 	hide()
