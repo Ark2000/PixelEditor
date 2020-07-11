@@ -1,0 +1,128 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/ui/CanvasClipPopup.gd" type="Script" id=1]
+[ext_resource path="res://resource/my_theme.tres" type="Theme" id=2]
+
+[node name="CanvasClipPopup" type="WindowDialog"]
+visible = true
+margin_right = 360.0
+margin_bottom = 121.0
+theme = ExtResource( 2 )
+window_title = "画布裁剪"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 344.0
+margin_bottom = 29.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 23.0
+margin_bottom = 29.0
+text = "W"
+
+[node name="W" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+margin_left = 27.0
+margin_right = 139.0
+margin_bottom = 29.0
+min_value = 1.0
+max_value = 128.0
+value = 1.0
+
+[node name="ColLoc" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+margin_left = 143.0
+margin_right = 203.0
+margin_bottom = 29.0
+text = "靠左"
+items = [ "靠左", null, false, 0, null, "居中", null, false, 1, null, "靠右", null, false, 2, null ]
+selected = 0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 207.0
+margin_right = 226.0
+margin_bottom = 29.0
+text = "X"
+
+[node name="X" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+margin_left = 230.0
+margin_right = 342.0
+margin_bottom = 29.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 33.0
+margin_right = 344.0
+margin_bottom = 62.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 20.0
+margin_bottom = 29.0
+text = "H"
+
+[node name="H" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 24.0
+margin_right = 136.0
+margin_bottom = 29.0
+min_value = 1.0
+max_value = 128.0
+value = 1.0
+
+[node name="RowLoc" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 140.0
+margin_right = 200.0
+margin_bottom = 29.0
+text = "靠上"
+items = [ "靠上", null, false, 0, null, "居中", null, false, 1, null, "靠下", null, false, 2, null ]
+selected = 0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 204.0
+margin_right = 223.0
+margin_bottom = 29.0
+text = "Y"
+
+[node name="Y" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 227.0
+margin_right = 339.0
+margin_bottom = 29.0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 66.0
+margin_right = 344.0
+margin_bottom = 70.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 74.0
+margin_right = 344.0
+margin_bottom = 103.0
+
+[node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_right = 170.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+text = "确认"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_left = 174.0
+margin_right = 344.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+text = "取消"
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/W" to="." method="_on_W_value_changed"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ColLoc" to="." method="_on_ColLoc_item_selected"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/H" to="." method="_on_H_value_changed"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/RowLoc" to="." method="_on_RowLoc_item_selected"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Cancel" to="." method="_on_Cancel_pressed"]

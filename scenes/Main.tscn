@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/PixelCanvas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/ui/SaveFilePopup.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/ui/CanvasFrame.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/ui/CanvasInfo.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/ui/CanvasClipPopup.tscn" type="PackedScene" id=15]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -77,6 +78,7 @@ tracks/1/keys = {
 script = ExtResource( 8 )
 
 [node name="tempGUI" type="Control" parent="."]
+visible = false
 margin_left = 520.285
 margin_top = -261.924
 margin_right = 560.285
@@ -235,6 +237,9 @@ margin_bottom = -28.8
 [node name="CanvasInfo" parent="GUI" instance=ExtResource( 14 )]
 visible = false
 
+[node name="CanvasClipPopup" parent="GUI" instance=ExtResource( 15 )]
+visible = false
+
 [node name="Bg" type="TextureRect" parent="."]
 show_behind_parent = true
 anchor_right = 1.0
@@ -255,12 +260,12 @@ __meta__ = {
 }
 
 [node name="PixelCanvas" parent="." instance=ExtResource( 1 )]
-record_history = true
 
 [node name="CanvasFrame" parent="." instance=ExtResource( 13 )]
 mouse_filter = 2
 
 [node name="Focus" type="Position2D" parent="."]
+visible = false
 script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="Focus"]
@@ -306,9 +311,14 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="undo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_undo_btn_pressed"]
 [connection signal="color_selected" from="GUI/VBoxContainer/ColorPalette" to="." method="_on_ColorPalette_color_selected"]
 [connection signal="canvas_info" from="GUI/MenuBar" to="." method="_on_MenuBar_canvas_info"]
+[connection signal="clear_canvas" from="GUI/MenuBar" to="." method="_on_MenuBar_clear_canvas"]
 [connection signal="grid_settings_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_grid_settings_form_submit"]
 [connection signal="new_file_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_new_file_form_submit"]
+[connection signal="redo" from="GUI/MenuBar" to="." method="_on_MenuBar_redo"]
 [connection signal="save_file" from="GUI/MenuBar" to="." method="_on_MenuBar_save_file"]
-[connection signal="set_canvas_bg_color" from="GUI/CanvasInfo" to="." method="_on_CanvasInfo_set_canvas_bg_color"]
+[connection signal="set_canvas_bg_color" from="GUI/MenuBar" to="." method="_on_MenuBar_set_canvas_bg_color"]
+[connection signal="set_canvas_clip" from="GUI/MenuBar" to="." method="_on_MenuBar_set_canvas_clip"]
+[connection signal="undo" from="GUI/MenuBar" to="." method="_on_MenuBar_undo"]
+[connection signal="form_submited" from="GUI/CanvasClipPopup" to="." method="_on_CanvasClipPopup_form_submited"]
 [connection signal="bitmap_init" from="PixelCanvas" to="CanvasFrame" method="_on_PixelCanvas_bitmap_init"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]

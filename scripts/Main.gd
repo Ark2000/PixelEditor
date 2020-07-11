@@ -10,6 +10,9 @@ var left_color := Color.transparent
 onready var cpalette = $GUI/VBoxContainer/ColorPalette
 onready var canpop = $GUI/CanvasInfo
 
+func _ready():
+	FileManager.filesystem_init()
+
 func update_info():
 	var mpos = canvas.global_to_canvas_position(get_global_mouse_position())
 	var s = "mouse position: %.2f, %.2f"%[mpos.x, mpos.y]
@@ -89,6 +92,7 @@ func _on_MenuBar_new_file_form_submit(form):
 	canvas.canvas_init(form.w, form.h)
 	canvas.set_file_name(form.file_name)
 	canvas.palette_name = form.palette_name
+	canvas.record("canvas initialized")
 
 func _on_ToolPanel_undo_btn_pressed():
 	canvas.undo()
@@ -109,5 +113,22 @@ func _on_MenuBar_canvas_info():
 	)
 	canpop.popup_centered()
 
-func _on_CanvasInfo_set_canvas_bg_color(c:Color):
+func _on_MenuBar_undo():
+	canvas.undo()
+
+func _on_MenuBar_redo():
+	canvas.redo()
+
+func _on_MenuBar_clear_canvas():
+	canvas.clear()
+
+func _on_MenuBar_set_canvas_bg_color(c:Color):
 	canvas.set_bg_color(c)
+
+func _on_MenuBar_set_canvas_clip():
+	$GUI/CanvasClipPopup.set_limitation(canvas.get_bitmap_size())
+	$GUI/CanvasClipPopup.popup_centered()
+
+func _on_CanvasClipPopup_form_submited(clip:Rect2):
+	canvas.canvas_clip(clip)
+	canvas.record("change canvas size")

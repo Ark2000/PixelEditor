@@ -25,7 +25,47 @@ static func directory_has_file(fname:String, path:String) -> bool:
 
 static func read_file_string(file_path:String):
 	var file = File.new()
-	file.open(file_path, File.READ)
+	var err = file.open(file_path, File.READ)
+	assert(err == OK)
 	var content = file.get_as_text()
 	file.close()
 	return content
+	
+static func folder_exist(folder:String):
+	var dir = Directory.new()
+	var err = dir.open(folder)
+	if err != OK:
+		return false
+	return true
+	
+static func folder_empty(folder:String):
+	var dir = Directory.new()
+	dir.open(folder)
+	dir.list_dir_begin()
+	while true:
+		var file = dir.get_next()
+		if not file.begins_with("."):
+			if file == "":
+				return true
+			else:
+				return false
+	
+static func create_folder(path:String, folder:String):
+	var dir = Directory.new()
+	dir.open(path)
+	dir.make_dir(folder)
+	
+static func filesystem_init():
+	if not folder_exist(Globals.USERART_SAVE_FOLDER):
+		print("用户文件夹不存在， 创建中...")
+		create_folder(Globals.WORKSPACE_PATH, Globals.USERARTS_FOLDER_NAME)
+	if not folder_exist(Globals.PALETTES_FOLDER):
+		print("调色板文件夹不存在，创建中...")
+		create_folder(Globals.WORKSPACE_PATH, Globals.PALETTES_FOLDER_NAME)
+	if folder_empty(Globals.PALETTES_FOLDER):
+		print("调色板文件夹为空，添加默认调色板...")
+		var f = File.new()
+		f.open(Globals.PALETTES_FOLDER + Globals.DEFAULT_PALETTE_NAME, File.WRITE)
+		f.store_string(Globals.DEFAULT_PALETTE)
+		f.close()
+	print("文件系统初始化完成")

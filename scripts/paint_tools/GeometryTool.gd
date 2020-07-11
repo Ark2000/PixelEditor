@@ -23,7 +23,7 @@ func paint_tool_update(mpos:Vector2):
 		p1 = null
 		bitmap_temp = null
 		if update_flag:
-			canvas.take_snapshot(operation_desc())
+			canvas.record(operation_desc())
 
 	if p0 != null:
 		if not Input.is_action_pressed("left_select"):

@@ -14,7 +14,7 @@ func paint_tool_update(mpos:Vector2):
 		last_position = null
 		last_color = null
 		if update_flag:
-			canvas.take_snapshot("draw pixels")
+			canvas.record("draw pixels")
 			update_flag = false
 
 	if Input.is_action_pressed("left_select"):

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/MenuBar.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ui/new_file_pop_window.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/AboutPopup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/GridSettings.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ui/ColorPickerPopup.tscn" type="PackedScene" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.113725, 0.137255, 0.156863, 1 )
@@ -34,19 +35,27 @@ text = "文件"
 flat = false
 items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "保存文件", null, 0, false, false, 1, 0, null, "", false, "退出", null, 0, false, false, 2, 0, null, "", false ]
 
-[node name="MenuButton3" type="MenuButton" parent="HBoxContainer"]
+[node name="MenuButton4" type="MenuButton" parent="HBoxContainer"]
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 29.0
+text = "编辑"
+flat = false
+items = [ "画布信息", null, 0, false, false, 0, 0, null, "", false, "清空画布", null, 0, false, false, 1, 0, null, "", false, "画布裁剪", null, 0, false, false, 2, 0, null, "", false, "撤销", null, 0, false, false, 3, 0, null, "", false, "恢复", null, 0, false, false, 4, 0, null, "", false ]
+
+[node name="MenuButton3" type="MenuButton" parent="HBoxContainer"]
+margin_left = 96.0
+margin_right = 140.0
+margin_bottom = 29.0
 text = "视图"
-items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false, "画布信息", null, 0, false, false, 1, 0, null, "", false ]
+items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false, "背景色设置", null, 0, false, false, 1, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MenuButton2" type="MenuButton" parent="HBoxContainer"]
-margin_left = 96.0
-margin_right = 140.0
+margin_left = 144.0
+margin_right = 188.0
 margin_bottom = 29.0
 text = "帮助"
 flat = false
@@ -59,3 +68,9 @@ visible = false
 
 [node name="GridSettings" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="CanvasBgSetting" parent="." instance=ExtResource( 6 )]
+visible = false
+window_title = "背景颜色设置"
+hint_text = "背景颜色不会影响位图数据"
+[connection signal="color_confirmed" from="CanvasBgSetting" to="." method="_on_CanvasBgSetting_color_confirmed"]

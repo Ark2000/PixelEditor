@@ -3,31 +3,28 @@ extends Node2D
 signal bitmap_changed
 signal bitmap_init
 
-const canvas_scale = 8
-const max_history_cache = 100 #保留的历史数（用于回撤功能）
-
-export var record_history = false
-var history_pointer #指向最近的一次历史记录
 var file_name = "unnamed.png"
 var palette_name = "default16"
-
+const canvas_scale = 8
 const grid_color = Color.cyan
 var show_grid := false
 var grid_size := Vector2(4, 4)
 var grid_offset := Vector2(0, 0)
 var bg_color := Color.transparent
 
-var bitmap_cache: Array
 var bitmap: PoolColorArray
 var width := 0
 var height := 0
 
+var recorder := CanvasHistoryRecorder.new()
+
 func _ready():
 	scale = Vector2(canvas_scale, canvas_scale)
 	canvas_init(32, 32)
+	record("canvas initialized")
 
 #初始化画布，分配内存
-func canvas_init(w: int, h: int):
+func canvas_init(w: int, h: int, clear_history=true):
 	self.width = w
 	self.height = h
 	bitmap = PoolColorArray([])
@@ -38,10 +35,8 @@ func canvas_init(w: int, h: int):
 	position = Vector2(-width, -height) * canvas_scale / 2
 	emit_signal("bitmap_init", Vector2(w, h), position)
 	
-	#清空历史缓存
-	bitmap_cache = []
-	history_pointer = -1
-	take_snapshot("canvas initialized")
+	if clear_history:
+		recorder.clear()
 
 #检查越界
 func is_valid_pixel(x, y) -> bool:
@@ -120,7 +115,6 @@ func generate_chaos_bitmap():
 			var color = Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0))
 			set_pixel(x, y, color, false)
 	emit_signal("bitmap_changed")
-	take_snapshot("generate chaos image")
 	
 func _draw():
 	draw_rect(get_bitmap_rect(), bg_color)
@@ -164,7 +158,6 @@ func open_png(open_path:String = "user://icon.png"):
 		for x in range(width):
 			set_pixel(x, y, image.get_pixel(x, y), false)
 	emit_signal("bitmap_changed")
-	take_snapshot("open png file")
 	
 static func bresenham(p1:Vector2, p2:Vector2) -> PoolVector2Array:
 	var set := PoolVector2Array()
@@ -257,9 +250,9 @@ func flood_fill(p:Vector2, c: Color):
 	if is_valid_pixelv(p):
 		orignal = get_pixelv(p)
 	else:
-		return
+		return false
 	if orignal == c:
-		return
+		return false
 	candidates.append(p)
 	while not candidates.empty():
 		var can = candidates[0]
@@ -270,9 +263,11 @@ func flood_fill(p:Vector2, c: Color):
 				if is_valid_pixelv(can + a) and get_pixelv(can + a) == orignal: 
 					candidates.push_back(can + a)
 	emit_signal("bitmap_changed")
+	return true
 	
 #整体偏移
 func overall_shift(offset:Vector2):
+	if offset == Vector2.ZERO: return false
 	var r1
 	var r2
 	if offset.x > 0:
@@ -297,47 +292,65 @@ func overall_shift(offset:Vector2):
 			set_pixel(x, y + offset.y, get_pixel(x, y), false)
 		for y in r2:
 			set_pixel(x, y, Color.transparent, false)
-	
 	emit_signal("bitmap_changed")
 	return true
+
+#改变画布的尺寸
+#具体的规则比较绕，拿行来举例。比如原H=32,现H=17,就代表要保留17行，那么Y的取值为[0, 15)
+#Y代表从哪一行（尺寸改变前）开始复制。如果原H=32,现H=37，那么就代表要扩增5行，Y的取值为[0, 5)，代表从哪一行（尺寸改变后）开始复制。复制：for y in range(min(OH, CH)):
+# if OH > CH: O[y + CY] -> C[y] else: O[y] -> C[y + CY]
+func canvas_clip(cur:Rect2):
+	assert(cur.position.x <= abs(width - cur.size.x))
+	assert(cur.position.y <= abs(height - cur.size.y))
+	if cur == get_bitmap_rect(): return false
+	var tmp = get_bitmap_copy() #original bitmap data
+	var osize = get_bitmap_size() # original bitmap size
+	#we handle rows first
+	canvas_init(int(width), int(cur.size.y), false)
+	for y in range(min(height, osize.y)):
+		for x in range(width):
+			if osize.y > height: #shrink
+				set_pixel(x, y, tmp[x + (y + cur.position.y) * osize.x], false)
+			else: #extend
+				set_pixel(x, y + cur.position.y, tmp[x + y * osize.x], false)
+	#now we handle colums
+	tmp = get_bitmap_copy()
+	canvas_init(int(cur.size.x), int(height), false)
+	for x in range(min(width, osize.x)):
+		for y in range(height):
+			if osize.x > width: #shrink
+				set_pixel(x, y, tmp[x + cur.position.x + y * osize.x], false)
+			else:#extend
+				set_pixel(x + cur.position.x, y, tmp[x + y * osize.x], false)
+	emit_signal("bitmap_changed")
 
 func clear(sgl= true):
 	for i in range(width * height):
 		bitmap[i] = Color.transparent
 	if sgl:
 		emit_signal("bitmap_changed")
-		take_snapshot("clear canvas")
-
-#保存当前的图像到历史缓存中
-func take_snapshot(msg = null):
-	if not record_history: return
-	#单分支历史,剪去之前的分支
-	if bitmap_cache.size() != (history_pointer + 1):
-		for i in range(bitmap_cache.size() - 1, history_pointer, -1):
-			bitmap_cache.remove(i)
-	if bitmap_cache.size() >= max_history_cache:
-		bitmap_cache.remove(0)
-		history_pointer -= 1
-	bitmap_cache.append(bitmap)
-	history_pointer += 1
 	
-	print("history saved at ", history_pointer, ", ", msg if msg else "")
+func restore_memento(memento):
+	canvas_init(memento.width, memento.height, false)
+	bitmap = memento.bitmap
+	emit_signal("bitmap_changed")
 	
-#撤销，undo
+func create_memento():
+	var memento = CanvasMemento.new()
+	memento.set_state(get_bitmap_copy(), width, height)
+	return memento
+	
+func record(msg=""):
+	recorder.record(create_memento())
+	print(msg)
+	
 func undo():
-	if history_pointer <= 0: return
-	history_pointer -= 1
-	bitmap = bitmap_cache[history_pointer]
-	emit_signal("bitmap_changed")
-	print("undo ", history_pointer)
+	if recorder.has_previous():
+		restore_memento(recorder.get_previous())
 
-#恢复撤销，redo
 func redo():
-	if history_pointer+1 == bitmap_cache.size(): return
-	history_pointer += 1
-	bitmap = bitmap_cache[history_pointer]
-	emit_signal("bitmap_changed")
-	print("redo ", history_pointer)
+	if recorder.has_next():
+		restore_memento(recorder.get_next())
 
 func _on_PixelCanvas_bitmap_changed():
 	update()

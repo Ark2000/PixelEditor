@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/paint_tools/Bucket.gd"
 }, {
+"base": "Reference",
+"class": "CanvasHistoryRecorder",
+"language": "GDScript",
+"path": "res://scripts/HistoryRecoder/CanvasHistoryRecorder.gd"
+}, {
+"base": "Reference",
+"class": "CanvasMemento",
+"language": "GDScript",
+"path": "res://scripts/HistoryRecoder/CanvasMemento.gd"
+}, {
 "base": "ScrollContainer",
 "class": "ColorPalette",
 "language": "GDScript",
@@ -77,6 +87,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BoxOutline": "",
 "Bucket": "",
+"CanvasHistoryRecorder": "",
+"CanvasMemento": "",
 "ColorPalette": "",
 "Dragger": "",
 "FileManager": "",
@@ -95,10 +107,6 @@ _global_script_class_icons={
 config/name="PixelEditor"
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://assets/icon.png"
-
-[display]
-
-window/size/always_on_top=true
 
 [importer_defaults]
 

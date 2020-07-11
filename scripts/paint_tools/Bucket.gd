@@ -16,5 +16,5 @@ func paint_tool_update(mpos:Vector2):
 		mpos = canvas.global_to_canvas_position(mpos)
 		if canvas.is_valid_pixelv(mpos):
 			canvas.flood_fill(p0, color)
-			canvas.take_snapshot("bucket")
+			canvas.record("bucket fill")
 		p0 = null
