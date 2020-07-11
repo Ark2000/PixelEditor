@@ -39,10 +39,16 @@ text = "文件名"
 
 [node name="Filename" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 margin_left = 60.0
-margin_right = 316.0
+margin_right = 273.0
 margin_bottom = 29.0
 size_flags_horizontal = 3
 text = "unnamed"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 277.0
+margin_right = 316.0
+margin_bottom = 29.0
+text = ".png"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 33.0

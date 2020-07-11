@@ -3,7 +3,7 @@ extends Node2D
 signal bitmap_changed
 signal bitmap_init
 
-var file_name = "unnamed.png"
+var file_name = "unnamed"
 var palette_name = "default16"
 const canvas_scale = 8
 const grid_color = Color.cyan
@@ -131,23 +131,22 @@ func draw_grid():
 	draw_line(Vector2(width, 0), Vector2(width, height), grid_color)
 	#画网格
 	if not show_grid: return
-	print(grid_size.x, " ", width)
 	for x in range(grid_offset.x, width, grid_size.x):
 		draw_line(Vector2(x, 0), Vector2(x, height), grid_color)
 	for y in range(grid_offset.y, height, grid_size.y):
 		draw_line(Vector2(0, y), Vector2(width, y), grid_color)
 
-func save_as_png():
+func save_as_png(img_scale = 1):
 	#简单粗暴的方法，直接套API
 	var image = Image.new()
-	image.create(width, height, false, Image.FORMAT_RGBA8)
+	image.create(width * img_scale, height * img_scale, false, Image.FORMAT_RGBA8)
 	image.lock()
-	for y in range(height):
-		for x in range(width):
-			image.set_pixel(x, y, get_pixel(x, y))
+	for y in range(height * img_scale):
+		for x in range(width * img_scale):
+			image.set_pixel(x, y, get_pixel(x / img_scale, y / img_scale))
 	image.unlock()
 	
-	image.save_png(Globals.USERART_SAVE_FOLDER + file_name)
+	image.save_png(Globals.USERART_SAVE_FOLDER + file_name + ".png")
 	
 func open_png(open_path:String = "user://icon.png"):
 	var image = Image.new()

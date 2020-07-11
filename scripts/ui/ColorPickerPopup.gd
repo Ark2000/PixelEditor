@@ -4,7 +4,7 @@ signal color_confirmed
 
 export var hint_text := "提示信息"
 
-var color := Color.transparent
+var color := Color(0.0, 0.0, 0.0, 0.0)
 
 onready var crect = $VBoxContainer/HBoxContainer/TextureRect/ColorRect
 

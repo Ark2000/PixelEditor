@@ -1,0 +1,117 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/ui/SaveFileSettingsPopup.gd" type="Script" id=2]
+
+[node name="SaveFileSettingsPopup" type="WindowDialog"]
+margin_right = 300.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 300, 200 )
+theme = ExtResource( 1 )
+popup_exclusive = true
+window_title = "保存文件"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 284.0
+margin_bottom = 29.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 63.0
+margin_bottom = 29.0
+text = "文件名 "
+
+[node name="FileName" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+margin_left = 67.0
+margin_right = 241.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+placeholder_text = "输入文件名"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 245.0
+margin_right = 284.0
+margin_bottom = 29.0
+text = ".png"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 33.0
+margin_right = 284.0
+margin_bottom = 62.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_right = 72.0
+margin_bottom = 29.0
+text = "缩放级别"
+
+[node name="ImgScale" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 76.0
+margin_right = 188.0
+margin_bottom = 29.0
+min_value = 1.0
+max_value = 32.0
+value = 1.0
+align = 1
+prefix = "x"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 66.0
+margin_right = 284.0
+margin_bottom = 95.0
+
+[node name="ImgInfo" type="Label" parent="VBoxContainer/HBoxContainer4"]
+margin_right = 284.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+text = "预计图像尺寸： 32 x 32"
+align = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+margin_top = 99.0
+margin_right = 284.0
+margin_bottom = 151.0
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "- [color=#FFFF44]文件名重复，将会覆盖[/color]"
+text = "- 文件名重复，将会覆盖"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 155.0
+margin_right = 284.0
+margin_bottom = 184.0
+
+[node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_right = 140.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "确认"
+
+[node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
+margin_left = 144.0
+margin_right = 284.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "取消"
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/FileName" to="." method="_on_FileName_text_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/ImgScale" to="." method="_on_ImgScale_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Cancel" to="." method="_on_Cancel_pressed"]

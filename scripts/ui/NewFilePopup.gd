@@ -11,7 +11,7 @@ func _ready():
 	for palette in palettes:
 		pob.add_item(palette)
 	load_palette_preview(0)
-	_on_Filename_text_changed($VBoxContainer/HBoxContainer/Filename.text + ".png")
+	_on_Filename_text_changed($VBoxContainer/HBoxContainer/Filename.text)
 
 func _on_Button2_pressed():
 	hide()
@@ -20,7 +20,7 @@ func _on_Button_pressed():
 	if err: return
 	var ob = $VBoxContainer/HBoxContainer4/OptionButton
 	get_parent().emit_signal("new_file_form_submit", {
-		"file_name": $VBoxContainer/HBoxContainer/Filename.text + ".png",
+		"file_name": $VBoxContainer/HBoxContainer/Filename.text,
 		"palette_name": ob.get_item_text(ob.get_selected_id()),
 		"w": int($VBoxContainer/HBoxContainer2/W.get_line_edit().text),
 		"h": int($VBoxContainer/HBoxContainer2/H.get_line_edit().text)

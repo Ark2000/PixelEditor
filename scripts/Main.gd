@@ -82,8 +82,13 @@ func _on_ToolPanel_selection_update(val):
 		paint_tool = Dragger.new(canvas, left_color)
 
 func _on_MenuBar_save_file():
-	canvas.save_as_png()
-	$GUI/SaveFilePopup.set_content(Globals.USERART_SAVE_FOLDER, canvas.file_name)
+	$GUI/SaveFileSettingsPopup.set_content(canvas.file_name, canvas.get_bitmap_size())
+	$GUI/SaveFileSettingsPopup.popup_centered()
+	
+func _on_SaveFileSettingsPopup_save_file_form_submited(fname:String, imgscale:int):
+	canvas.file_name = fname
+	canvas.save_as_png(imgscale)
+	$GUI/SaveFilePopup.set_content(Globals.USERART_SAVE_FOLDER, canvas.file_name + ".png")
 	$GUI/SaveFilePopup.popup_centered()
 
 func _on_MenuBar_new_file_form_submit(form):

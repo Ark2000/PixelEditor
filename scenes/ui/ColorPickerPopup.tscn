@@ -56,7 +56,7 @@ stretch_mode = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 1, 1, 1, 0.113725 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
