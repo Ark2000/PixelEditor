@@ -1,7 +1,7 @@
 extends WindowDialog
 
 func set_content(file_folder:String, file_name):
-	$VBoxContainer/RichTextLabel.bbcode_text = "[center]文件已保存为[color=#44FF44][url]" + file_folder + "[/url]" + file_name + "[/color][/center]"
+	$VBoxContainer/RichTextLabel.bbcode_text = "[center]File has been saved at [color=#44FF44][url]" + file_folder + "[/url]" + file_name + "[/color][/center]"
 
 
 func _on_RichTextLabel_meta_clicked(_meta):

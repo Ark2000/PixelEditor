@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/PixelCanvas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ui/bg.png" type="Texture" id=2]
@@ -16,25 +16,11 @@
 [ext_resource path="res://scenes/ui/CanvasInfo.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/ui/CanvasClipPopup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/ui/SaveFileSettingsPopup.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/Logger/LoggerDisplay.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/font/PixelOperator.ttf" type="DynamicFontData" id=18]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Label
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-"
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 18 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 7 )
@@ -47,7 +33,6 @@ shader_param/radius = 0.0
 shader_param/amount = 0.0
 
 [sub_resource type="Animation" id=4]
-resource_name = "cursor_flashing"
 length = 1.1
 loop = true
 tracks/0/type = "value"
@@ -78,104 +63,13 @@ tracks/1/keys = {
 [node name="Main" type="Node2D"]
 script = ExtResource( 8 )
 
-[node name="tempGUI" type="Control" parent="."]
-visible = false
-margin_left = 520.285
-margin_top = -261.924
-margin_right = 560.285
-margin_bottom = -221.924
-mouse_filter = 2
-theme = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = -63.0
-margin_right = 411.0
-margin_bottom = -34.0
-text = "保存图像"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = -34.0
-margin_right = 411.0
-margin_bottom = -5.0
-text = "打开图像"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button3" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = -5.0
-margin_right = 411.0
-margin_bottom = 24.0
-text = "随机生成"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button4" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = 24.0
-margin_right = 411.0
-margin_bottom = 53.0
-text = "显示网格"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button9" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = 53.0
-margin_right = 411.0
-margin_bottom = 82.0
-text = "清空画布"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button10" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = 82.0
-margin_right = 411.0
-margin_bottom = 111.0
-text = "改变大小"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button11" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = 111.0
-margin_right = 411.0
-margin_bottom = 140.0
-text = "撤销"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button12" type="Button" parent="tempGUI"]
-margin_left = 335.0
-margin_top = 140.0
-margin_right = 411.0
-margin_bottom = 169.0
-text = "恢复"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="GUI" type="CanvasLayer" parent="."]
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GUI"]
-visible = false
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -52.0
 mouse_filter = 2
 theme = ExtResource( 5 )
 __meta__ = {
@@ -186,7 +80,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/VBoxContainer2"]
 margin_right = 1024.0
-margin_bottom = 62.0
+margin_bottom = 52.0
 mouse_filter = 2
 size_flags_horizontal = 3
 __meta__ = {
@@ -195,18 +89,19 @@ __meta__ = {
 
 [node name="Line1" type="Label" parent="GUI/VBoxContainer2/VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 29.0
+margin_bottom = 24.0
 theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Line2" type="Label" parent="GUI/VBoxContainer2/VBoxContainer"]
-margin_top = 33.0
+margin_top = 28.0
 margin_right = 1024.0
-margin_bottom = 62.0
+margin_bottom = 52.0
 theme = ExtResource( 5 )
-script = SubResource( 1 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -214,35 +109,40 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
 anchor_bottom = 1.0
 margin_top = 29.0
-margin_right = 76.0
+margin_right = 84.0
+margin_bottom = -43.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ToolPanel" parent="GUI/VBoxContainer" instance=ExtResource( 11 )]
-rect_min_size = Vector2( 76, 144 )
-size_flags_horizontal = 0
+margin_right = 84.0
+rect_min_size = Vector2( 76, 188 )
 
 [node name="ColorPalette" parent="GUI/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 148.0
-margin_bottom = 571.0
-size_flags_vertical = 3
+margin_top = 192.0
+margin_right = 84.0
+margin_bottom = 528.0
 
 [node name="SaveFilePopup" parent="GUI" instance=ExtResource( 12 )]
-visible = false
 
 [node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
 anchor_bottom = 0.048
 margin_bottom = -28.8
 
 [node name="CanvasInfo" parent="GUI" instance=ExtResource( 14 )]
-visible = false
 
 [node name="CanvasClipPopup" parent="GUI" instance=ExtResource( 15 )]
 visible = false
 
 [node name="SaveFileSettingsPopup" parent="GUI" instance=ExtResource( 16 )]
+visible = false
 margin_right = 292.0
+
+[node name="LoggerDisplay" parent="GUI" instance=ExtResource( 17 )]
+margin_left = -225.0
+margin_top = 29.0
+margin_bottom = 291.0
 
 [node name="Bg" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -296,20 +196,10 @@ texture = ExtResource( 9 )
 centered = false
 offset = Vector2( -192, -192 )
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "cursor_flashing"
 playback_speed = 0.5
 anims/cursor_flashing = SubResource( 4 )
-[connection signal="pressed" from="tempGUI/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="tempGUI/Button2" to="." method="_on_Button2_pressed"]
-[connection signal="pressed" from="tempGUI/Button3" to="." method="_on_Button3_pressed"]
-[connection signal="pressed" from="tempGUI/Button4" to="." method="_on_Button4_pressed"]
-[connection signal="pressed" from="tempGUI/Button9" to="." method="_on_Button9_pressed"]
-[connection signal="pressed" from="tempGUI/Button10" to="." method="_on_Button10_pressed"]
-[connection signal="pressed" from="tempGUI/Button11" to="." method="_on_Button11_pressed"]
-[connection signal="pressed" from="tempGUI/Button12" to="." method="_on_Button12_pressed"]
 [connection signal="redo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_redo_btn_pressed"]
 [connection signal="selection_update" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_selection_update"]
 [connection signal="undo_btn_pressed" from="GUI/VBoxContainer/ToolPanel" to="." method="_on_ToolPanel_undo_btn_pressed"]
@@ -326,4 +216,5 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="form_submited" from="GUI/CanvasClipPopup" to="." method="_on_CanvasClipPopup_form_submited"]
 [connection signal="save_file_form_submited" from="GUI/SaveFileSettingsPopup" to="." method="_on_SaveFileSettingsPopup_save_file_form_submited"]
 [connection signal="bitmap_init" from="PixelCanvas" to="CanvasFrame" method="_on_PixelCanvas_bitmap_init"]
+[connection signal="framesize_changed" from="CanvasFrame" to="." method="_on_CanvasFrame_framesize_changed"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]

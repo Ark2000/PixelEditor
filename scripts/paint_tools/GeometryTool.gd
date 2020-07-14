@@ -19,11 +19,11 @@ func paint_tool_update(mpos:Vector2):
 		bitmap_temp = canvas.get_bitmap_copy()
 		update_flag = false
 	if Input.is_action_just_released("left_select"):
+		if update_flag and p0 != null and p1 != null:
+			canvas.record(operation_desc() + ",p0:%s, p1:%s"%[String(p0), String(p1)])
 		p0 = null
 		p1 = null
 		bitmap_temp = null
-		if update_flag:
-			canvas.record(operation_desc())
 
 	if p0 != null:
 		if not Input.is_action_pressed("left_select"):

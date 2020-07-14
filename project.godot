@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/HistoryRecoder/CanvasMemento.gd"
 }, {
-"base": "ScrollContainer",
+"base": "Panel",
 "class": "ColorPalette",
 "language": "GDScript",
 "path": "res://scripts/ColorPalette.gd"
@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/paint_tools/Line.gd"
 }, {
+"base": "Reference",
+"class": "LogEntry",
+"language": "GDScript",
+"path": "res://scripts/Logger/LogEntry.gd"
+}, {
 "base": "WindowDialog",
 "class": "NewFilePopup",
 "language": "GDScript",
@@ -96,6 +101,7 @@ _global_script_class_icons={
 "GeometryTool": "",
 "Globals": "",
 "Line": "",
+"LogEntry": "",
 "NewFilePopup": "",
 "PaintTool": "",
 "Pencil": "",
@@ -108,6 +114,10 @@ config/name="PixelEditor"
 run/main_scene="res://scenes/Main.tscn"
 run/low_processor_mode=true
 config/icon="res://assets/icon.png"
+
+[autoload]
+
+Logger="*res://scenes/Logger/Logger.tscn"
 
 [importer_defaults]
 

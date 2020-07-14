@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/Logger/LoggerPopup.gd" type="Script" id=2]
+
+[node name="Logger" type="WindowDialog"]
+visible = true
+margin_right = 529.0
+margin_bottom = 359.0
+theme = ExtResource( 1 )
+window_title = "Logger"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 513.0
+margin_bottom = 33.0
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 61.0
+margin_bottom = 33.0
+text = "Clear"
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 65.0
+margin_right = 135.0
+margin_bottom = 33.0
+text = "Reload"
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 139.0
+margin_right = 309.0
+margin_bottom = 33.0
+text = "Copy to Clipboard"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 351.0
+margin_right = 415.0
+margin_bottom = 33.0
+size_flags_horizontal = 10
+size_flags_vertical = 3
+text = "Filter"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+margin_left = 419.0
+margin_right = 513.0
+margin_bottom = 33.0
+text = "Trivial"
+items = [ "Trivial", null, false, 0, null, "Generic", null, false, 1, null, "Vital", null, false, 2, null, "Fatal", null, false, 3, null ]
+selected = 0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 37.0
+margin_right = 513.0
+margin_bottom = 41.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+margin_top = 45.0
+margin_right = 513.0
+margin_bottom = 343.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]

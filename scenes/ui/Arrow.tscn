@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/ui/arrow.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/arrow.gd" type="Script" id=2]
+[ext_resource path="res://assets/font/Gamer.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 3 )
+
+[node name="Arrow" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counters" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right" type="Label" parent="Counters"]
+margin_left = 28.0
+margin_right = 50.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 1 )
+text = "0px"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top" type="Label" parent="Counters"]
+margin_left = 52.0
+margin_top = 7.99989
+margin_right = 74.0
+margin_bottom = 33.9999
+rect_rotation = 89.9999
+custom_fonts/font = SubResource( 1 )
+text = "0px"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="Label" parent="Counters"]
+margin_left = 71.9999
+margin_top = 32.0003
+margin_right = 108.0
+margin_bottom = 58.0003
+rect_rotation = 180.0
+custom_fonts/font = SubResource( 1 )
+text = "0px"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom" type="Label" parent="Counters"]
+margin_left = 20.0002
+margin_top = 27.9999
+margin_right = 42.0002
+margin_bottom = 53.9999
+rect_rotation = 270.0
+custom_fonts/font = SubResource( 1 )
+text = "0px"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 24.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 24, 32 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="TextureRect" to="." method="_on_TextureRect_mouse_entered"]
+[connection signal="mouse_exited" from="TextureRect" to="." method="_on_TextureRect_mouse_exited"]

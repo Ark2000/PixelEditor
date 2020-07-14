@@ -3,14 +3,17 @@
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/AboutPopup.gd" type="Script" id=2]
 [ext_resource path="res://assets/icon.png" type="Texture" id=3]
-[ext_resource path="res://assets/font/ZiTiGuanJiaHeiTi-1.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/font/ZiTiGuanJiaHeiTi-1.ttf"
+
+[sub_resource type="DynamicFont" id=2]
 size = 36
 extra_spacing_char = 2
-font_data = ExtResource( 4 )
+font_data = SubResource( 1 )
 
 [node name="AboutPopup" type="WindowDialog"]
+visible = true
 margin_right = 600.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 600, 400 )
@@ -30,8 +33,8 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_left = 111.0
-margin_right = 489.0
+margin_left = 239.0
+margin_right = 361.0
 margin_bottom = 64.0
 size_flags_horizontal = 4
 
@@ -42,10 +45,10 @@ texture = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 margin_left = 68.0
-margin_top = 4.0
-margin_right = 378.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
+margin_top = 27.0
+margin_right = 122.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 2 )
 text = "GodotPixelEditor"
 align = 1
 __meta__ = {
@@ -66,46 +69,88 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 36.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 text = "更新日志
+Update Logs
+- 2020/07/14
+	- 在画框四周增加了可拖动小箭头以更改画布尺寸
+	- Add arrows around canvas frame which can be dragged to change canvas size
+	- 增加了日志系统
+	- Add log system
+- 2020/07/12
+	- 优化了调色板和工具栏的UI
+	- Optimize UIs of Palette and Tools panel
 - 2020/07/11
 	- 增加了”画布裁剪“的选项
+	- Add \"Clip Canvas\" menu option
 	- 增加了\"清空画布\"的选项
+	- Add \"Clear Canvas\" menu option
 	- 调整了部分菜单选项的位置
+	- Adjust positions of some menu options
 	- 稍微完善了一下文件管理机制
+	- Improve file system
 	- 增加了新的图标
+	- Add new icons
 	- 现在保存文件时可以设置缩放了
+	- Add Image Scale option in Save File window
 - 2020/07/10
 	- 增加了画布边框，显示尺寸信息
+	- Add canvas frame to show the size
 	- 增加了“画布信息”弹窗，可以设置画布背景颜色
+	- Add \"Canas Info\" window, you can set bg color there
 	- 增加了油漆桶工具（使用BFS算法，效率较低）
+	- Add bucket tool (use BFS, slow)
 	- 增加了整体偏移工具
+	- Add overall shift tool
 - 2020/07/09
 	- 增加了顶部的菜单条
+	- Add top menu bar 
 	- 优化了调色板的样式
+	- Optimize the style of palette panel
 	- 增加了工具栏
+	- Add tools panel
 	- 增加了“网格设置”弹窗
+	- Add \"Grid Setting\" window
 	- 增加了”保存文件“弹窗
+	- Add \"Save File\" window
 	- 增加了“关于”弹窗
+	- Add \"About\" window
 - 2020/07/08
 	- 增加了新的调色板，可以加载色彩方案
+	- Remade palette panel, you can now palettes now
+	- 增加了 “新建文件” 弹窗
+	- Add \"New File\" window
+	- 增加了 “橡皮擦” 的功能
+	- Add eraser tool
 - 2020/07/07
-	- 增加了undo，redo功能
+	- 增加了撤销，恢复功能
+	- Add undo, redo
 - 2020/07/06
 	- 铅笔工具现在可以画出连续的线了（使用bresenham算法进行插值）
+	- Pencil can now produce continious line(use bresenham algorthm)
 	- 添加了直线工具
+	- Add line tool
 	- 添加了填充矩形工具
+	- Add filled rect tool
 	- 添加了矩形边框工具
+	- Add rect frame tool
 	- 增加了更多的临时按钮，去掉了之前的ui
+	- Add more test bottons, remove past UI
 - 2020/07/03
 	- 自由缩放画布，拖拽画布移动视图
+	- Add view zoom, view dragging
 	- 网格参考线
+	- Add grid lines
 	- 下拉式的调色板（实际体验不是很好，弹来弹去的很烦）
+	- Add drop-down palette(the actual experience is bad)
 	- 保存/打开PNG文件
+	- Load/Save PNG file
 	- 基本的铅笔工具（存在轨迹不连续的问题）
-	- 闪闪发光的游标"
+	- Basic pencil(noncontinous)
+	- 闪闪发光的游标
+	- Shining cursor"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -115,23 +160,35 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 36.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 bbcode_enabled = true
-bbcode_text = "k2kra
+bbcode_text = "Design: k2kra
+Email: [url]ark2000@foxmail.com[/url]
 
-邮箱： [url]ark2000@foxmail.com[/url]"
-text = "k2kra
+THANKS:
+- \"Pixel Operator\" font by Jayvee Enaguas (dafont.com)
+- \"Game\" font by memesbruh03 (dafont.com)
+- \"iPix\" font by HZK16 (itch.io)
+- icon8.com (numerous icons)
+- lospec.com (pixel art palettes)"
+text = "Design: k2kra
+Email: ark2000@foxmail.com
 
-邮箱： ark2000@foxmail.com"
+THANKS:
+- \"Pixel Operator\" font by Jayvee Enaguas (dafont.com)
+- \"Game\" font by memesbruh03 (dafont.com)
+- \"iPix\" font by HZK16 (itch.io)
+- icon8.com (numerous icons)
+- lospec.com (pixel art palettes)"
 
 [node name="License" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 36.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 text = "MIT License

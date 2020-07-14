@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Gamer.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/ui/CanvasFrame.gd" type="Script" id=3]
+[ext_resource path="res://scenes/ui/Arrow.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -11,6 +12,10 @@ extra_spacing_bottom = 4
 font_data = ExtResource( 2 )
 
 [node name="CanvasFrame" type="Control"]
+margin_left = 385.0
+margin_top = 185.0
+margin_right = 385.0
+margin_bottom = 185.0
 theme = ExtResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -91,3 +96,42 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Arrow" parent="." instance=ExtResource( 4 )]
+margin_left = 111.0
+margin_top = -9.0
+margin_right = 111.0
+margin_bottom = -9.0
+rect_rotation = -89.9999
+location = "top"
+
+[node name="Arrow2" parent="." instance=ExtResource( 4 )]
+margin_left = 143.0
+margin_top = 258.585
+margin_right = 143.0
+margin_bottom = 258.585
+rect_rotation = 89.9999
+location = "bottom"
+
+[node name="Arrow3" parent="." instance=ExtResource( 4 )]
+margin_left = -9.0
+margin_top = 147.0
+margin_right = -9.0
+margin_bottom = 147.0
+rect_rotation = -180.0
+location = "left"
+
+[node name="Arrow4" parent="." instance=ExtResource( 4 )]
+margin_left = 267.0
+margin_top = 115.0
+margin_right = 267.0
+margin_bottom = 115.0
+location = "right"
+[connection signal="end" from="Arrow" to="." method="_on_Arrow_end"]
+[connection signal="size_changed" from="Arrow" to="." method="_on_Arrow_size_changed"]
+[connection signal="end" from="Arrow2" to="." method="_on_Arrow_end"]
+[connection signal="size_changed" from="Arrow2" to="." method="_on_Arrow_size_changed"]
+[connection signal="end" from="Arrow3" to="." method="_on_Arrow_end"]
+[connection signal="size_changed" from="Arrow3" to="." method="_on_Arrow_size_changed"]
+[connection signal="end" from="Arrow4" to="." method="_on_Arrow_end"]
+[connection signal="size_changed" from="Arrow4" to="." method="_on_Arrow_size_changed"]

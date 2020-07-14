@@ -8,14 +8,15 @@
 [node name="ColorPickerPopup" type="WindowDialog"]
 visible = true
 margin_right = 335.0
-margin_bottom = 244.0
+margin_bottom = 300.0
 theme = ExtResource( 1 )
 popup_exclusive = true
-window_title = "颜色设置"
+window_title = "Pick Color"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+hint_text = "Hint"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -30,24 +31,26 @@ __meta__ = {
 
 [node name="Hint" type="Label" parent="VBoxContainer"]
 margin_right = 318.0
-margin_bottom = 29.0
-text = "提示信息"
+margin_bottom = 61.0
+text = "Hint
+"
 align = 1
+autowrap = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 33.0
+margin_top = 65.0
 margin_right = 318.0
-margin_bottom = 62.0
+margin_bottom = 98.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 72.0
-margin_bottom = 29.0
-text = "颜色预览"
+margin_right = 88.0
+margin_bottom = 33.0
+text = "Preiview"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 76.0
+margin_left = 92.0
 margin_right = 318.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
@@ -62,41 +65,41 @@ __meta__ = {
 }
 
 [node name="R" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 66.0
-margin_bottom = 95.0
+margin_top = 102.0
+margin_bottom = 135.0
 
 [node name="G" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 99.0
-margin_bottom = 128.0
+margin_top = 139.0
+margin_bottom = 172.0
 text = "G"
 
 [node name="B" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 132.0
-margin_bottom = 161.0
+margin_top = 176.0
+margin_bottom = 209.0
 text = "B"
 
 [node name="A" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 165.0
-margin_bottom = 194.0
+margin_top = 213.0
+margin_bottom = 246.0
 text = "A"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 198.0
+margin_top = 250.0
 margin_right = 318.0
-margin_bottom = 227.0
+margin_bottom = 283.0
 
 [node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer2"]
 margin_right = 157.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "确认"
+text = "Confirm"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 161.0
 margin_right = 318.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "取消"
+text = "Cancel"
 [connection signal="value_changed" from="VBoxContainer/R" to="." method="_on_R_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/G" to="." method="_on_G_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/B" to="." method="_on_B_value_changed"]

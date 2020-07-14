@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/MenuBar.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/ui/AboutPopup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/GridSettings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/ColorPickerPopup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Logger/LoggerPopup.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.113725, 0.137255, 0.156863, 1 )
@@ -29,48 +30,50 @@ __meta__ = {
 }
 
 [node name="MenuButton" type="MenuButton" parent="HBoxContainer"]
-margin_right = 44.0
-margin_bottom = 29.0
-text = "文件"
+margin_right = 48.0
+margin_bottom = 33.0
+text = "File"
 flat = false
-items = [ "新建文件", null, 0, false, false, 0, 0, null, "", false, "保存文件", null, 0, false, false, 1, 0, null, "", false, "退出", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "New File", null, 0, false, false, 0, 0, null, "", false, "Save File", null, 0, false, false, 1, 0, null, "", false, "Exit", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="MenuButton4" type="MenuButton" parent="HBoxContainer"]
-margin_left = 48.0
-margin_right = 92.0
-margin_bottom = 29.0
-text = "编辑"
+margin_left = 52.0
+margin_right = 101.0
+margin_bottom = 33.0
+text = "Edit"
 flat = false
-items = [ "画布信息", null, 0, false, false, 0, 0, null, "", false, "清空画布", null, 0, false, false, 1, 0, null, "", false, "画布裁剪", null, 0, false, false, 2, 0, null, "", false, "撤销", null, 0, false, false, 3, 0, null, "", false, "恢复", null, 0, false, false, 4, 0, null, "", false ]
+items = [ "Canvas Info", null, 0, false, false, 0, 0, null, "", false, "Clear Canvas", null, 0, false, false, 1, 0, null, "", false, "Clip Canvas", null, 0, false, false, 2, 0, null, "", false, "Undo", null, 0, false, false, 3, 0, null, "", false, "Redo", null, 0, false, false, 4, 0, null, "", false ]
 
 [node name="MenuButton3" type="MenuButton" parent="HBoxContainer"]
-margin_left = 96.0
-margin_right = 140.0
-margin_bottom = 29.0
-text = "视图"
-items = [ "网格设置", null, 0, false, false, 0, 0, null, "", false, "背景色设置", null, 0, false, false, 1, 0, null, "", false ]
+margin_left = 105.0
+margin_right = 158.0
+margin_bottom = 33.0
+text = "View"
+items = [ "Grid Settings", null, 0, false, false, 0, 0, null, "", false, "BackGround Color", null, 0, false, false, 1, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MenuButton2" type="MenuButton" parent="HBoxContainer"]
-margin_left = 144.0
-margin_right = 188.0
-margin_bottom = 29.0
-text = "帮助"
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 33.0
+text = "Help"
 flat = false
-items = [ "关于", null, 0, false, false, 0, 0, null, "", false, "资源文件夹", null, 0, false, false, 1, 0, null, "", false, "浏览源代码", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "Logger", null, 0, false, false, 0, 0, null, "", false, "About", null, 0, false, false, 1, 0, null, "", false, "User Folder", null, 0, false, false, 2, 0, null, "", false, "View Source", null, 0, false, false, 3, 0, null, "", false ]
 
 [node name="new_file_pop_window" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="AboutPopup" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="GridSettings" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="CanvasBgSetting" parent="." instance=ExtResource( 6 )]
 visible = false
-window_title = "背景颜色设置"
-hint_text = "背景颜色不会影响位图数据"
+window_title = "Bg Color Setting"
+hint_text = "The Bg color will not affect bitmap data"
+
+[node name="LoggerPopup" parent="." instance=ExtResource( 7 )]
+visible = false
 [connection signal="color_confirmed" from="CanvasBgSetting" to="." method="_on_CanvasBgSetting_color_confirmed"]

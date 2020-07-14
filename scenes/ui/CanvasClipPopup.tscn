@@ -6,9 +6,9 @@
 [node name="CanvasClipPopup" type="WindowDialog"]
 visible = true
 margin_right = 360.0
-margin_bottom = 121.0
+margin_bottom = 131.0
 theme = ExtResource( 2 )
-window_title = "画布裁剪"
+window_title = "Canvas Clip"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -27,99 +27,99 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 344.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 23.0
-margin_bottom = 29.0
+margin_right = 21.0
+margin_bottom = 33.0
 text = "W"
 
 [node name="W" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
-margin_left = 27.0
-margin_right = 139.0
-margin_bottom = 29.0
+margin_left = 25.0
+margin_right = 125.0
+margin_bottom = 33.0
 min_value = 1.0
 max_value = 128.0
 value = 1.0
 
 [node name="ColLoc" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
-margin_left = 143.0
-margin_right = 203.0
-margin_bottom = 29.0
-text = "靠左"
-items = [ "靠左", null, false, 0, null, "居中", null, false, 1, null, "靠右", null, false, 2, null ]
+margin_left = 129.0
+margin_right = 195.0
+margin_bottom = 33.0
+text = "Left"
+items = [ "Left", null, false, 0, null, "Center", null, false, 1, null, "Right", null, false, 2, null ]
 selected = 0
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 207.0
-margin_right = 226.0
-margin_bottom = 29.0
+margin_left = 199.0
+margin_right = 217.0
+margin_bottom = 33.0
 text = "X"
 
 [node name="X" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
-margin_left = 230.0
-margin_right = 342.0
-margin_bottom = 29.0
+margin_left = 221.0
+margin_right = 321.0
+margin_bottom = 33.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 33.0
+margin_top = 37.0
 margin_right = 344.0
-margin_bottom = 62.0
+margin_bottom = 70.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 20.0
-margin_bottom = 29.0
+margin_right = 18.0
+margin_bottom = 33.0
 text = "H"
 
 [node name="H" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 24.0
-margin_right = 136.0
-margin_bottom = 29.0
+margin_left = 22.0
+margin_right = 122.0
+margin_bottom = 33.0
 min_value = 1.0
 max_value = 128.0
 value = 1.0
 
 [node name="RowLoc" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 140.0
-margin_right = 200.0
-margin_bottom = 29.0
-text = "靠上"
-items = [ "靠上", null, false, 0, null, "居中", null, false, 1, null, "靠下", null, false, 2, null ]
+margin_left = 126.0
+margin_right = 185.0
+margin_bottom = 33.0
+text = "Top"
+items = [ "Top", null, false, 0, null, "Center", null, false, 1, null, "Bottom", null, false, 2, null ]
 selected = 0
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 204.0
-margin_right = 223.0
-margin_bottom = 29.0
+margin_left = 189.0
+margin_right = 207.0
+margin_bottom = 33.0
 text = "Y"
 
 [node name="Y" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 227.0
-margin_right = 339.0
-margin_bottom = 29.0
+margin_left = 211.0
+margin_right = 311.0
+margin_bottom = 33.0
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 66.0
-margin_right = 344.0
-margin_bottom = 70.0
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 74.0
 margin_right = 344.0
-margin_bottom = 103.0
+margin_bottom = 78.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 82.0
+margin_right = 344.0
+margin_bottom = 115.0
 
 [node name="Confirm" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_right = 170.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "确认"
+text = "Confirm"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 174.0
 margin_right = 344.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "取消"
+text = "Cancel"
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/W" to="." method="_on_W_value_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/ColLoc" to="." method="_on_ColLoc_item_selected"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer2/H" to="." method="_on_H_value_changed"]

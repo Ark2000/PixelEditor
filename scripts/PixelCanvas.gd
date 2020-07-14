@@ -20,11 +20,9 @@ var recorder := CanvasHistoryRecorder.new()
 
 func _ready():
 	scale = Vector2(canvas_scale, canvas_scale)
-	canvas_init(32, 32)
-	record("canvas initialized")
 
 #初始化画布，分配内存
-func canvas_init(w: int, h: int, clear_history=true):
+func canvas_init(w: int, h: int, clear_history=true, centered=true):
 	self.width = w
 	self.height = h
 	bitmap = PoolColorArray([])
@@ -32,7 +30,8 @@ func canvas_init(w: int, h: int, clear_history=true):
 		bitmap.push_back(Color(0.0, 0.0, 0.0, 0.0))
 	emit_signal("bitmap_changed")
 	#居中摆放画布
-	position = Vector2(-width, -height) * canvas_scale / 2
+	if centered:
+		position = Vector2(-width, -height) * canvas_scale / 2
 	emit_signal("bitmap_init", Vector2(w, h), position)
 	
 	if clear_history:
@@ -100,13 +99,10 @@ func set_grid_offset(val):
 
 #将传入的全局坐标转化为位图坐标
 func global_to_canvas_position(var mpos:Vector2) -> Vector2:
-	#居中摆放的画布,需要额外的转换
-	var half_canvas = get_bitmap_size() / 2
-	mpos /= canvas_scale
-	mpos += half_canvas
-	mpos.x = floor(mpos.x)
-	mpos.y = floor(mpos.y)
-	return mpos
+	var cp = mpos - position
+	cp.x = int(cp.x / canvas_scale)
+	cp.y = int(cp.y / canvas_scale)
+	return cp
 
 #生成
 func generate_chaos_bitmap():
@@ -298,14 +294,14 @@ func overall_shift(offset:Vector2):
 #具体的规则比较绕，拿行来举例。比如原H=32,现H=17,就代表要保留17行，那么Y的取值为[0, 15)
 #Y代表从哪一行（尺寸改变前）开始复制。如果原H=32,现H=37，那么就代表要扩增5行，Y的取值为[0, 5)，代表从哪一行（尺寸改变后）开始复制。复制：for y in range(min(OH, CH)):
 # if OH > CH: O[y + CY] -> C[y] else: O[y] -> C[y + CY]
-func canvas_clip(cur:Rect2):
+func canvas_clip(cur:Rect2, centered=true):
 	assert(cur.position.x <= abs(width - cur.size.x))
 	assert(cur.position.y <= abs(height - cur.size.y))
 	if cur == get_bitmap_rect(): return false
 	var tmp = get_bitmap_copy() #original bitmap data
 	var osize = get_bitmap_size() # original bitmap size
 	#we handle rows first
-	canvas_init(int(width), int(cur.size.y), false)
+	canvas_init(int(width), int(cur.size.y), false, centered)
 	for y in range(min(height, osize.y)):
 		for x in range(width):
 			if osize.y > height: #shrink
@@ -314,7 +310,7 @@ func canvas_clip(cur:Rect2):
 				set_pixel(x, y + cur.position.y, tmp[x + y * osize.x], false)
 	#now we handle colums
 	tmp = get_bitmap_copy()
-	canvas_init(int(cur.size.x), int(height), false)
+	canvas_init(int(cur.size.x), int(height), false, centered)
 	for x in range(min(width, osize.x)):
 		for y in range(height):
 			if osize.x > width: #shrink
@@ -325,7 +321,7 @@ func canvas_clip(cur:Rect2):
 
 func clear(sgl= true):
 	for i in range(width * height):
-		bitmap[i] = Color.transparent
+		bitmap[i] = Color(0.0, 0.0, 0.0, 0.0)
 	if sgl:
 		emit_signal("bitmap_changed")
 	
@@ -341,15 +337,17 @@ func create_memento():
 	
 func record(msg=""):
 	recorder.record(create_memento())
-	print(msg)
+	Logger.Log("New memento", LogEntry.GENERIC, msg)
 	
 func undo():
 	if recorder.has_previous():
 		restore_memento(recorder.get_previous())
+		Logger.Log("Undo", LogEntry.GENERIC, String(recorder.history_pointer))
 
 func redo():
 	if recorder.has_next():
 		restore_memento(recorder.get_next())
+		Logger.Log("Redo", LogEntry.GENERIC, String(recorder.history_pointer))
 
 func _on_PixelCanvas_bitmap_changed():
 	update()

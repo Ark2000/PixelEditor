@@ -57,15 +57,15 @@ static func create_folder(path:String, folder:String):
 	
 static func filesystem_init():
 	if not folder_exist(Globals.USERART_SAVE_FOLDER):
-		print("用户文件夹不存在， 创建中...")
+		Logger.Log("Failed to locate User Folder, creating...")
 		create_folder(Globals.WORKSPACE_PATH, Globals.USERARTS_FOLDER_NAME)
 	if not folder_exist(Globals.PALETTES_FOLDER):
-		print("调色板文件夹不存在，创建中...")
+		Logger.Log("Failed to locate Palettes Folder, creating...")
 		create_folder(Globals.WORKSPACE_PATH, Globals.PALETTES_FOLDER_NAME)
 	if folder_empty(Globals.PALETTES_FOLDER):
-		print("调色板文件夹为空，添加默认调色板...")
+		Logger.Log("Palettes Folder is empty, adding default palette...")
 		var f = File.new()
 		f.open(Globals.PALETTES_FOLDER + Globals.DEFAULT_PALETTE_NAME, File.WRITE)
 		f.store_string(Globals.DEFAULT_PALETTE)
 		f.close()
-	print("文件系统初始化完成")
+	Logger.Log("File System Initialized", LogEntry.TRIVIAL)

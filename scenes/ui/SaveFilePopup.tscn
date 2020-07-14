@@ -4,12 +4,11 @@
 [ext_resource path="res://scripts/ui/SaveFilePopup.gd" type="Script" id=2]
 
 [node name="SaveFilePopup" type="WindowDialog"]
-visible = true
 margin_right = 300.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 200, 100 )
 theme = ExtResource( 1 )
-window_title = "保存文件"
+window_title = "Save File"
 resizable = true
 script = ExtResource( 2 )
 __meta__ = {
@@ -25,7 +24,7 @@ __meta__ = {
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 margin_right = 300.0
-margin_bottom = 67.0
+margin_bottom = 63.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -34,9 +33,9 @@ __meta__ = {
 }
 
 [node name="Confirm" type="Button" parent="VBoxContainer"]
-margin_top = 71.0
+margin_top = 67.0
 margin_right = 300.0
 margin_bottom = 100.0
-text = "确认"
+text = "Confirm"
 [connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="pressed" from="VBoxContainer/Confirm" to="." method="_on_Confirm_pressed"]

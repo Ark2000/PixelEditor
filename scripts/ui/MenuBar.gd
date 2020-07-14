@@ -30,14 +30,16 @@ func _on_file_section_id_pressed(id:int):
 		get_tree().quit()
 
 func _on_help_section_id_pressed(id:int):
-	if id == 0:
+	if id == 1:
 		$AboutPopup.popup_centered()
-	elif id == 2:
+	elif id == 3:
 		var err = OS.shell_open("https://github.com/Ark2000/PixelEditor")
 		assert(err == OK)
-	elif id == 1:
+	elif id == 2:
 		var err = OS.shell_open(ProjectSettings.globalize_path("user://"))
 		assert(err == OK)
+	elif id == 0:
+		$LoggerPopup.popup_centered()
 
 func _on_view_section_id_pressed(id:int):
 	if id == 0:

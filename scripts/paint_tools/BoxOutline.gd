@@ -13,4 +13,4 @@ func draw_api():
 	return canvas.set_pixel_rect(rect, color)
 
 func operation_desc() -> String:
-	return "draw rect"
+	return "draw rectangle box"
