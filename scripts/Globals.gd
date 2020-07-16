@@ -1,4 +1,4 @@
-class_name Globals
+extends Node
 
 const WORKSPACE_PATH = "user://"
 const USERARTS_FOLDER_NAME = "userarts"
@@ -7,3 +7,5 @@ const USERART_SAVE_FOLDER = WORKSPACE_PATH + USERARTS_FOLDER_NAME + "/"
 const PALETTES_FOLDER = WORKSPACE_PATH + PALETTES_FOLDER_NAME + "/"
 const DEFAULT_PALETTE = "00000044243430346d4e4a4e854c30346524d04648757161597dced27d2c8595a16daa2cd2aa996dc2cadad45edeeed6"
 const DEFAULT_PALETTE_NAME = "default16"
+
+var Init = false

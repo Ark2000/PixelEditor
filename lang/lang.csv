@@ -1,0 +1,37 @@
+keys,en,fr,zh,zh_TW,ja
+MENUBAR_FILE,File,Fichier,菜单,菜單,メニュー
+MENUBAR_EDIT,Edit,Éditer,编辑,編輯,編集する
+MENUBAR_VIEW,View,Vue,视图,視圖,見る
+MENUBAR_HELP,Help,Aidez-moi,帮助,幫助,助けて
+NEW_FILE,New File,Nouveau fichier,新建文件,新建文件,新しいファイル
+SAVE_FILE,Save File,Enregistrer le fichier,保存文件,保存文件,ファイルを保存
+OPEN_FILE,Open File,Fichier ouvert,打开文件,打開文件,ファイルを開く
+EXIT,Exit,Sortie,退出程序,退出程序,出口
+CANVAS_INFO,Canvas Info,Informations sur la toile,画布信息,畫布信息,キャンバス情報
+CLEAR_CANVAS,Clear Canvas,Toile claire,清空画布,清空畫布,キャンバスを空にする
+CLIP_CANVAS,Clip Canvas,Clip Canvas,画布裁剪,畫布裁剪,クリップキャンバス
+UNDO,Undo,annuler,撤销,撤銷,元に戻す
+REDO,Redo,Refaire,恢复,恢復,やり直す
+GRID_SETTINGS,Grid Settings,Paramètres de la grille,网格设置,網格設置,グリッド設定
+BG_COLOR,Background Color,Couleur de l'arrière plan,背景颜色,背景顏色,背景色
+LOGGER,Logger,Enregistreur,日志记录器,日志記錄器,ロガー
+ABOUT,About,À propos,关于,關於,約
+USER_FOLDER,User Folder,Dossier utilisateur,用户文件夹,用戶文件夾,ユーザーフォルダ
+VIEW_SOURCE,View Source,Voir la source,查看源代码,查看源代碼,ソースを表示
+TOOLS,Tools,Outils,工具,工具,ツール
+PALETTE,Palette,Palette,调色板,調色板,パレット
+CONFIRM,Confirm,Confirmer,确认,確定,確認
+CANCEL,Cancel,Annuler,取消,放棄,キャンセル
+NAME,Name,Nom,名称,名稱,名前
+WIDTH,Width,Largeur,宽度,寬度,幅
+HEIGHT,Height,la taille,高度,高度,高さ
+SHOW_GRID,Show Grid,Afficher la grille,显示网格,顯示網格,グリッドを表示
+PREVIEW,Preview,Aperçu,预览,預覽,プレビュー
+SCALE_LEVEL,Scale Level,Niveau d'échelle,缩放级别,縮放級別,スケールレベル
+CLEAR,Clear,nettoyer,清空,清空,晴れ
+COPY_TO_CLIPBOARD,Copy to ClipBoard,Copier dans le presse-papier,复制到剪切板,複製到剪切板,クリップボードにコピー
+FILTER,Filter,Filtre,过滤器,過濾器,フィルタ
+ERR1,Please input file name,Veuillez saisir le nom du fichier,请输入文件名,請輸入文件名,ファイル名を入力してください
+WARNING1,"Duplicated file name, override","Nom de fichier dupliqué, remplacement",文件名重复，将会覆盖,文件名重複，將會覆蓋,重複するファイル名は上書きされます
+EXP_IMG_SIZE,Expected Image Size,Taille d'image attendue,预计分辨率,預計分辨率,推定解像度
+RELOAD,Reload,Recharger,重新加载,重新加載,リロード

@@ -4,11 +4,10 @@
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=2]
 
 [node name="CanvasClipPopup" type="WindowDialog"]
-visible = true
 margin_right = 360.0
 margin_bottom = 131.0
 theme = ExtResource( 2 )
-window_title = "Canvas Clip"
+window_title = "CLIP_CANVAS"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,14 +111,14 @@ margin_bottom = 115.0
 margin_right = 170.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Confirm"
+text = "CONFIRM"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 174.0
 margin_right = 344.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Cancel"
+text = "CANCEL"
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer/W" to="." method="_on_W_value_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/ColLoc" to="." method="_on_ColLoc_item_selected"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer2/H" to="." method="_on_H_value_changed"]

@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/paint_tools/GeometryTool.gd"
 }, {
-"base": "Reference",
-"class": "Globals",
-"language": "GDScript",
-"path": "res://scripts/Globals.gd"
-}, {
 "base": "GeometryTool",
 "class": "Line",
 "language": "GDScript",
@@ -99,7 +94,6 @@ _global_script_class_icons={
 "FileManager": "",
 "FilledBox": "",
 "GeometryTool": "",
-"Globals": "",
 "Line": "",
 "LogEntry": "",
 "NewFilePopup": "",
@@ -118,6 +112,7 @@ config/icon="res://assets/icon.png"
 [autoload]
 
 Logger="*res://scenes/Logger/Logger.tscn"
+Globals="*res://scenes/Globals.tscn"
 
 [importer_defaults]
 
@@ -172,7 +167,11 @@ right_select={
 
 [locale]
 
-locale_filter=[ 0, [  ] ]
+locale_filter=[ 0, [ "en", "zh", "zh_TW" ] ]
+translations=PoolStringArray( "res://lang/lang.en.translation", "res://lang/lang.zh.translation", "res://lang/lang.zh_TW.translation", "res://lang/lang.ja.translation", "res://lang/lang.fr.translation" )
+translation_remaps={
+
+}
 
 [rendering]
 

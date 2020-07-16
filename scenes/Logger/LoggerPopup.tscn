@@ -8,7 +8,7 @@ visible = true
 margin_right = 529.0
 margin_bottom = 359.0
 theme = ExtResource( 1 )
-window_title = "Logger"
+window_title = "LOGGER"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -30,29 +30,29 @@ margin_right = 513.0
 margin_bottom = 33.0
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 61.0
+margin_right = 62.0
 margin_bottom = 33.0
-text = "Clear"
+text = "CLEAR"
 
 [node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 65.0
-margin_right = 135.0
+margin_left = 66.0
+margin_right = 138.0
 margin_bottom = 33.0
-text = "Reload"
+text = "RELOAD"
 
 [node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 139.0
-margin_right = 309.0
+margin_left = 142.0
+margin_right = 319.0
 margin_bottom = 33.0
-text = "Copy to Clipboard"
+text = "COPY_TO_CLIPBOARD"
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 351.0
+margin_left = 348.0
 margin_right = 415.0
 margin_bottom = 33.0
 size_flags_horizontal = 10
 size_flags_vertical = 3
-text = "Filter"
+text = "FILTER"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
 margin_left = 419.0

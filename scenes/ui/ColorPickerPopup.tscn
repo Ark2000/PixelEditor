@@ -43,12 +43,12 @@ margin_right = 318.0
 margin_bottom = 98.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 88.0
+margin_right = 79.0
 margin_bottom = 33.0
-text = "Preiview"
+text = "PREVIEW"
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 92.0
+margin_left = 83.0
 margin_right = 318.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -92,14 +92,14 @@ margin_bottom = 283.0
 margin_right = 157.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Confirm"
+text = "CONFIRM"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 161.0
 margin_right = 318.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Cancel"
+text = "CANCEL"
 [connection signal="value_changed" from="VBoxContainer/R" to="." method="_on_R_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/G" to="." method="_on_G_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/B" to="." method="_on_B_value_changed"]

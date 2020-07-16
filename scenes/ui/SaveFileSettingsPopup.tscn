@@ -10,7 +10,7 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 300, 200 )
 theme = ExtResource( 1 )
 popup_exclusive = true
-window_title = "Save File"
+window_title = "SAVE_FILE"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,12 +32,12 @@ margin_right = 365.0
 margin_bottom = 33.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 51.0
+margin_right = 52.0
 margin_bottom = 33.0
-text = "Name"
+text = "NAME"
 
 [node name="FileName" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 55.0
+margin_left = 56.0
 margin_right = 315.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -56,13 +56,13 @@ margin_right = 365.0
 margin_bottom = 70.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 110.0
+margin_right = 116.0
 margin_bottom = 33.0
-text = "Scale Level"
+text = "SCALE_LEVEL"
 
 [node name="ImgScale" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 114.0
-margin_right = 214.0
+margin_left = 120.0
+margin_right = 220.0
 margin_bottom = 33.0
 min_value = 1.0
 max_value = 32.0
@@ -104,7 +104,7 @@ margin_right = 180.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Confirm"
+text = "CONFIRM"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 184.0
@@ -112,7 +112,7 @@ margin_right = 365.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Cancel"
+text = "CANCEL"
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/FileName" to="." method="_on_FileName_text_changed"]
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer2/ImgScale" to="." method="_on_ImgScale_value_changed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/Confirm" to="." method="_on_Confirm_pressed"]

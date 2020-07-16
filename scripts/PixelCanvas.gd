@@ -147,6 +147,8 @@ func save_as_png(img_scale = 1):
 func open_png(open_path:String = "user://icon.png"):
 	var image = Image.new()
 	image.load(open_path)
+	if image.get_width() > 128 or image.get_height() > 128:
+		return "Your file is too large.(128x maximum)"
 	canvas_init(image.get_width(), image.get_height())
 	image.lock()
 	for y in range(height):

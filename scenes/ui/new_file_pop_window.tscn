@@ -5,12 +5,13 @@
 [ext_resource path="res://assets/image_test.png" type="Texture" id=3]
 
 [node name="new_file_pop_window" type="WindowDialog"]
+visible = true
 margin_right = 360.0
 margin_bottom = 228.0
 rect_min_size = Vector2( 326, 204 )
 theme = ExtResource( 1 )
 popup_exclusive = true
-window_title = "New File"
+window_title = "NEW_FILE"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -33,12 +34,12 @@ margin_bottom = 33.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 51.0
+margin_right = 52.0
 margin_bottom = 33.0
-text = "Name"
+text = "NAME"
 
 [node name="Filename" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 55.0
+margin_left = 56.0
 margin_right = 297.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -57,12 +58,12 @@ margin_bottom = 70.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer4"]
-margin_right = 74.0
+margin_right = 80.0
 margin_bottom = 33.0
-text = "Palette"
+text = "PALETTE"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer4"]
-margin_left = 78.0
+margin_left = 84.0
 margin_right = 347.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -84,12 +85,12 @@ margin_bottom = 131.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 58.0
+margin_right = 60.0
 margin_bottom = 33.0
-text = "Width"
+text = "WIDTH"
 
 [node name="W" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 62.0
+margin_left = 64.0
 margin_right = 168.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -99,12 +100,12 @@ value = 32.0
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 172.0
-margin_right = 237.0
+margin_right = 239.0
 margin_bottom = 33.0
-text = "Height"
+text = "HEIGHT"
 
 [node name="H" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 241.0
+margin_left = 243.0
 margin_right = 347.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
@@ -144,14 +145,14 @@ alignment = 1
 margin_right = 171.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Confirm"
+text = "CONFIRM"
 
 [node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer3"]
 margin_left = 175.0
 margin_right = 347.0
 margin_bottom = 33.0
 size_flags_horizontal = 3
-text = "Cancel"
+text = "CANCEL"
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/Filename" to="." method="_on_Filename_text_changed"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer4/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/Button" to="." method="_on_Button_pressed"]

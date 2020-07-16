@@ -19,17 +19,17 @@ func set_content(file_name:String, canvas_size:Vector2):
 func _on_FileName_text_changed(new_text):
 	err = false
 	if new_text == "":
-		rtl.bbcode_text = "[color=#FF4444]- Please input file name[/color]"
+		rtl.bbcode_text = "[color=#FF4444]- " + tr("ERR1") + "[/color]"
 		err = true
 	else:
 		rtl.bbcode_text = "[color=#44FF44]- OK[/color]"
 	var ffname = new_text + ".png"
 	if FileManager.directory_has_file(ffname, Globals.USERART_SAVE_FOLDER):
-		rtl.bbcode_text = "[color=#FFFF44]- Duplicated file name, override[/color]"
+		rtl.bbcode_text = "[color=#FFFF44]- "+tr("WARNING1")+"[/color]"
 
 func _on_ImgScale_value_changed(value:float):
 	print(value)
-	$VBoxContainer/HBoxContainer4/ImgInfo.text = "Expected Image Size：" + String(csize.x * value) + " x " + String(csize.y * value)
+	$VBoxContainer/HBoxContainer4/ImgInfo.text = tr("EXP_IMG_SIZE")+"：" + String(csize.x * value) + " x " + String(csize.y * value)
 
 func _on_Confirm_pressed():
 	if err: return

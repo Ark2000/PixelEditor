@@ -2,6 +2,14 @@
 
 ## 2020/07/14
 
+![](https://s1.ax1x.com/2020/07/16/UrWD91.gif)
+
+- 2020/07/16
+	- 增加了打开文件的选项
+	- Add "Open File" option in menu
+	- 增加了切换语言的选项
+	- Add multi-language support
+
 ![](https://s1.ax1x.com/2020/07/15/Ua2nN8.gif)
 ![](https://s1.ax1x.com/2020/07/15/Ua2mAf.png)
 

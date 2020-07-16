@@ -34,8 +34,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 68.0
 margin_bottom = 33.0
-text = "Tools"
+text = "TOOLS"
 align = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

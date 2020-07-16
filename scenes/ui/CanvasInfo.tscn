@@ -7,7 +7,7 @@
 margin_right = 300.0
 margin_bottom = 146.0
 theme = ExtResource( 1 )
-window_title = "Canvas Information"
+window_title = "CANVAS_INFO"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

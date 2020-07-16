@@ -31,8 +31,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 80.0
 margin_bottom = 33.0
-text = "Palette"
+text = "PALETTE"
 align = 1
+clip_text = true
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 37.0

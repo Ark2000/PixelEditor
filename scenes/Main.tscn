@@ -125,6 +125,7 @@ margin_right = 84.0
 margin_bottom = 528.0
 
 [node name="SaveFilePopup" parent="GUI" instance=ExtResource( 12 )]
+visible = false
 
 [node name="MenuBar" parent="GUI" instance=ExtResource( 10 )]
 anchor_bottom = 0.048
@@ -133,7 +134,6 @@ margin_bottom = -28.8
 [node name="CanvasInfo" parent="GUI" instance=ExtResource( 14 )]
 
 [node name="CanvasClipPopup" parent="GUI" instance=ExtResource( 15 )]
-visible = false
 
 [node name="SaveFileSettingsPopup" parent="GUI" instance=ExtResource( 16 )]
 visible = false
@@ -143,6 +143,28 @@ margin_right = 292.0
 margin_left = -225.0
 margin_top = 29.0
 margin_bottom = 291.0
+
+[node name="OpenFileDialog" type="FileDialog" parent="GUI"]
+margin_right = 500.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 500, 400 )
+theme = ExtResource( 5 )
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png" )
+current_dir = "/WORKSPACE/godot_projects/PixelEditor"
+current_path = "/WORKSPACE/godot_projects/PixelEditor/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptDialog" type="AcceptDialog" parent="GUI"]
+margin_right = 83.0
+margin_bottom = 58.0
+theme = ExtResource( 5 )
 
 [node name="Bg" type="TextureRect" parent="."]
 show_behind_parent = true
@@ -154,6 +176,7 @@ margin_right = -1600.0
 margin_bottom = -1600.0
 rect_scale = Vector2( 4, 4 )
 mouse_filter = 2
+theme = ExtResource( 5 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
@@ -208,6 +231,7 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="clear_canvas" from="GUI/MenuBar" to="." method="_on_MenuBar_clear_canvas"]
 [connection signal="grid_settings_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_grid_settings_form_submit"]
 [connection signal="new_file_form_submit" from="GUI/MenuBar" to="." method="_on_MenuBar_new_file_form_submit"]
+[connection signal="open_file" from="GUI/MenuBar" to="." method="_on_MenuBar_open_file"]
 [connection signal="redo" from="GUI/MenuBar" to="." method="_on_MenuBar_redo"]
 [connection signal="save_file" from="GUI/MenuBar" to="." method="_on_MenuBar_save_file"]
 [connection signal="set_canvas_bg_color" from="GUI/MenuBar" to="." method="_on_MenuBar_set_canvas_bg_color"]
@@ -215,6 +239,7 @@ anims/cursor_flashing = SubResource( 4 )
 [connection signal="undo" from="GUI/MenuBar" to="." method="_on_MenuBar_undo"]
 [connection signal="form_submited" from="GUI/CanvasClipPopup" to="." method="_on_CanvasClipPopup_form_submited"]
 [connection signal="save_file_form_submited" from="GUI/SaveFileSettingsPopup" to="." method="_on_SaveFileSettingsPopup_save_file_form_submited"]
+[connection signal="file_selected" from="GUI/OpenFileDialog" to="." method="_on_OpenFileDialog_file_selected"]
 [connection signal="bitmap_init" from="PixelCanvas" to="CanvasFrame" method="_on_PixelCanvas_bitmap_init"]
 [connection signal="framesize_changed" from="CanvasFrame" to="." method="_on_CanvasFrame_framesize_changed"]
 [connection signal="state_changed" from="Focus" to="." method="_on_Focus_state_changed"]

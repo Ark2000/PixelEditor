@@ -30,13 +30,13 @@ func _on_Button_pressed():
 func _on_Filename_text_changed(new_text):
 	err = false
 	if new_text == "":
-		$VBoxContainer/RichTextLabel.bbcode_text = "[color=#FF4444]- Please input file name[/color]"
+		$VBoxContainer/RichTextLabel.bbcode_text = "[color=#FF4444]- "+tr("ERR1")+"[/color]"
 		err = true
 	else:
 		$VBoxContainer/RichTextLabel.bbcode_text = "[color=#44FF44]- OK[/color]"
 	var fname = new_text + ".png"
 	if FileManager.directory_has_file(fname, Globals.USERART_SAVE_FOLDER):
-		$VBoxContainer/RichTextLabel.bbcode_text = "[color=#FFFF44]- Duplicated file name, override[/color]"
+		$VBoxContainer/RichTextLabel.bbcode_text = "[color=#FFFF44]- "+tr("WARNING1")+"[/color]"
 
 static func generate_palette_preview(file_name) -> Image:
 	var image = Image.new()

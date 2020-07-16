@@ -1,6 +1,7 @@
 extends Panel
 
 signal save_file
+signal open_file
 signal new_file_form_submit
 signal grid_settings_form_submit
 signal canvas_info
@@ -15,11 +16,35 @@ onready var help_section = $HBoxContainer/MenuButton2
 onready var view_section = $HBoxContainer/MenuButton3
 onready var edit_section = $HBoxContainer/MenuButton4
 
+var lang = PopupMenu.new()
+const langs = {
+	"English": "en",
+	"français": "fr",
+	"简体中文": "zh",
+	"繁體中文": "zh_TW",
+	"日本語": "ja"
+}
+func ___fuck():
+	emit_signal("new_file_form_submit")
+	emit_signal("grid_settings_form_submit")
+
 func _ready():
 	file_section.get_popup().connect("id_pressed", self, "_on_file_section_id_pressed")
 	help_section.get_popup().connect("id_pressed", self, "_on_help_section_id_pressed")
 	view_section.get_popup().connect("id_pressed", self, "_on_view_section_id_pressed")
 	edit_section.get_popup().connect("id_pressed", self, "_on_edit_section_id_pressed")
+	
+	lang.name = "Languages"
+	for s in langs:
+		lang.add_item(s)
+	help_section.get_popup().add_child(lang)
+	help_section.get_popup().add_submenu_item("Languages", "Languages")
+	lang.connect("id_pressed", self, "_on_lang_id_pressed")
+	
+func _on_lang_id_pressed(id:int):
+	TranslationServer.set_locale(langs[lang.get_item_text(id)])
+	assert(get_tree().reload_current_scene() == OK)
+	Logger.Log("switch language to " + lang.get_item_text(id), LogEntry.GENERIC)
 	
 func _on_file_section_id_pressed(id:int):
 	if id == 0:
@@ -27,6 +52,8 @@ func _on_file_section_id_pressed(id:int):
 	elif id == 1:
 		emit_signal("save_file")
 	elif id == 2:
+		emit_signal("open_file")
+	elif id == 3:
 		get_tree().quit()
 
 func _on_help_section_id_pressed(id:int):
@@ -62,3 +89,7 @@ func _on_edit_section_id_pressed(id:int):
 
 func _on_CanvasBgSetting_color_confirmed(val):
 	emit_signal("set_canvas_bg_color", val)
+
+
+func _on_FileDialog_file_selected(path):
+	print(path)

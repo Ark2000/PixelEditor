@@ -9,6 +9,9 @@ onready var cpalette = $GUI/VBoxContainer/ColorPalette
 onready var canpop = $GUI/CanvasInfo
 
 func _ready():
+	if not Globals.Init:
+		TranslationServer.set_locale("en")
+		Globals.Init = true
 	FileManager.filesystem_init()
 	canvas.canvas_init(32, 32)
 	canvas.record("canvas initialized")
@@ -130,3 +133,14 @@ func _on_CanvasFrame_framesize_changed(fsize, loc):
 		canvas.canvas_clip(Rect2(Vector2(0, 0), fsize))
 	canvas.record("Canvas size changed to %s"%fsize)
 	
+func _on_MenuBar_open_file():
+	$GUI/OpenFileDialog.popup_centered()
+
+
+func _on_OpenFileDialog_file_selected(path):
+	var err = canvas.open_png(path)
+	if err != null:
+		$GUI/AcceptDialog.dialog_text = err
+		$GUI/AcceptDialog.popup_centered()
+		return
+	canvas.record("Open png file from " + path)

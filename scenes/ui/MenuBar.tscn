@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/MenuBar.gd" type="Script" id=2]
@@ -7,13 +7,14 @@
 [ext_resource path="res://scenes/ui/GridSettings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/ui/ColorPickerPopup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Logger/LoggerPopup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/ui/icons8-link-12.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.113725, 0.137255, 0.156863, 1 )
 
 [node name="MenuBar" type="Panel"]
 anchor_right = 1.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 rect_min_size = Vector2( 0, 29 )
 theme = ExtResource( 1 )
 custom_styles/panel = SubResource( 1 )
@@ -24,50 +25,51 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
-margin_bottom = 20.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MenuButton" type="MenuButton" parent="HBoxContainer"]
-margin_right = 48.0
+margin_right = 132.0
 margin_bottom = 33.0
-text = "File"
+text = "MENUBAR_FILE"
 flat = false
-items = [ "New File", null, 0, false, false, 0, 0, null, "", false, "Save File", null, 0, false, false, 1, 0, null, "", false, "Exit", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "NEW_FILE", null, 0, false, false, 0, 0, null, "", false, "SAVE_FILE", null, 0, false, false, 1, 0, null, "", false, "OPEN_FILE", null, 0, false, false, 2, 0, null, "", false, "EXIT", null, 0, false, false, 3, 0, null, "", false ]
 
 [node name="MenuButton4" type="MenuButton" parent="HBoxContainer"]
-margin_left = 52.0
-margin_right = 101.0
+margin_left = 136.0
+margin_right = 269.0
 margin_bottom = 33.0
-text = "Edit"
+text = "MENUBAR_EDIT"
 flat = false
-items = [ "Canvas Info", null, 0, false, false, 0, 0, null, "", false, "Clear Canvas", null, 0, false, false, 1, 0, null, "", false, "Clip Canvas", null, 0, false, false, 2, 0, null, "", false, "Undo", null, 0, false, false, 3, 0, null, "", false, "Redo", null, 0, false, false, 4, 0, null, "", false ]
+items = [ "CANVAS_INFO", null, 0, false, false, 0, 0, null, "", false, "CLEAR_CANVAS", null, 0, false, false, 1, 0, null, "", false, "CLIP_CANVAS", null, 0, false, false, 2, 0, null, "", false, "UNDO", null, 0, false, false, 3, 0, null, "", false, "REDO", null, 0, false, false, 4, 0, null, "", false ]
 
 [node name="MenuButton3" type="MenuButton" parent="HBoxContainer"]
-margin_left = 105.0
-margin_right = 158.0
+margin_left = 273.0
+margin_right = 408.0
 margin_bottom = 33.0
-text = "View"
-items = [ "Grid Settings", null, 0, false, false, 0, 0, null, "", false, "BackGround Color", null, 0, false, false, 1, 0, null, "", false ]
+text = "MENUBAR_VIEW"
+items = [ "GRID_SETTINGS", null, 0, false, false, 0, 0, null, "", false, "BG_COLOR", null, 0, false, false, 1, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MenuButton2" type="MenuButton" parent="HBoxContainer"]
-margin_left = 162.0
-margin_right = 212.0
+margin_left = 412.0
+margin_right = 546.0
 margin_bottom = 33.0
-text = "Help"
+text = "MENUBAR_HELP"
 flat = false
-items = [ "Logger", null, 0, false, false, 0, 0, null, "", false, "About", null, 0, false, false, 1, 0, null, "", false, "User Folder", null, 0, false, false, 2, 0, null, "", false, "View Source", null, 0, false, false, 3, 0, null, "", false ]
+items = [ "LOGGER", null, 0, false, false, 0, 0, null, "", false, "ABOUT", null, 0, false, false, 1, 0, null, "", false, "USER_FOLDER", null, 0, false, false, 2, 0, null, "", false, "VIEW_SOURCE", ExtResource( 9 ), 0, false, false, 3, 0, null, "", false ]
 
 [node name="new_file_pop_window" parent="." instance=ExtResource( 3 )]
-
-[node name="AboutPopup" parent="." instance=ExtResource( 4 )]
 visible = false
 
+[node name="AboutPopup" parent="." instance=ExtResource( 4 )]
+
 [node name="GridSettings" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="CanvasBgSetting" parent="." instance=ExtResource( 6 )]
 visible = false

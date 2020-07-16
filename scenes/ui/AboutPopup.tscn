@@ -1,16 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resource/my_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/AboutPopup.gd" type="Script" id=2]
 [ext_resource path="res://assets/icon.png" type="Texture" id=3]
-
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://assets/font/ZiTiGuanJiaHeiTi-1.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 36
-extra_spacing_char = 2
-font_data = SubResource( 1 )
 
 [node name="AboutPopup" type="WindowDialog"]
 visible = true
@@ -18,7 +10,7 @@ margin_right = 600.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 600, 400 )
 theme = ExtResource( 1 )
-window_title = "About"
+window_title = "ABOUT"
 resizable = true
 script = ExtResource( 2 )
 __meta__ = {
@@ -33,8 +25,8 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_left = 239.0
-margin_right = 361.0
+margin_left = 268.0
+margin_right = 332.0
 margin_bottom = 64.0
 size_flags_horizontal = 4
 
@@ -42,18 +34,6 @@ size_flags_horizontal = 4
 margin_right = 64.0
 margin_bottom = 64.0
 texture = ExtResource( 3 )
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_left = 68.0
-margin_top = 27.0
-margin_right = 122.0
-margin_bottom = 37.0
-custom_fonts/font = SubResource( 2 )
-text = "GodotPixelEditor"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 margin_top = 68.0
@@ -66,6 +46,7 @@ __meta__ = {
 }
 
 [node name="Update" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -74,6 +55,11 @@ margin_right = -5.0
 margin_bottom = -5.0
 text = "更新日志
 Update Logs
+- 2020/07/16
+	- 增加了打开文件的选项
+	- Add \"Open File\" option in menu
+	- 增加了切换语言的选项
+	- Add multi-language support
 - 2020/07/14
 	- 在画框四周增加了可拖动小箭头以更改画布尺寸
 	- Add arrows around canvas frame which can be dragged to change canvas size
@@ -156,7 +142,6 @@ __meta__ = {
 }
 
 [node name="Author" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -172,7 +157,11 @@ THANKS:
 - \"Game\" font by memesbruh03 (dafont.com)
 - \"iPix\" font by HZK16 (itch.io)
 - icon8.com (numerous icons)
-- lospec.com (pixel art palettes)"
+- lospec.com (pixel art palettes)
+
+2020/07/16
+Although there are a lot of features I plan to implement, such as web support, tablet support, index based palette, multiple layers, animation preview, region clone, canvas rotation, mirror operation, left/right tools, multitasking, and so on.But,  for a variety of reasons, I decided to  suspend the project from now on. One critial reson is that, I found myself left of summer vacation, and my game is still on the paper. Godot is really a good engine, I will take it to continue my journey in game development probably. In a word, thanks everyone. I am not a planner, and the code may be a little messy. I am sorry for that.
+虽然还有很多计划中的功能没有实现，比如Web支持，移动端支持，基于索引的调色板，多图层作画，播放动画预览，区域剪切复制，画布旋转，镜像操作，左右键工具，多任务等等。出于多种原因，我决定从今天开始暂停此项目。其中一个很重要的原因就是，我发现自己的暑假所剩无几，而计划中的游戏还未进行开发，这不免有些主次颠倒。Godot真的是一个很优秀的引擎，大概率接下来我还会带着它继续我的游戏开发之旅。总之，感谢您的使用，我不是一个喜欢计划的人，代码可能有些凌乱，对于这一点我感到抱歉。"
 text = "Design: k2kra
 Email: ark2000@foxmail.com
 
@@ -181,7 +170,11 @@ THANKS:
 - \"Game\" font by memesbruh03 (dafont.com)
 - \"iPix\" font by HZK16 (itch.io)
 - icon8.com (numerous icons)
-- lospec.com (pixel art palettes)"
+- lospec.com (pixel art palettes)
+
+2020/07/16
+Although there are a lot of features I plan to implement, such as web support, tablet support, index based palette, multiple layers, animation preview, region clone, canvas rotation, mirror operation, left/right tools, multitasking, and so on.But,  for a variety of reasons, I decided to  suspend the project from now on. One critial reson is that, I found myself left of summer vacation, and my game is still on the paper. Godot is really a good engine, I will take it to continue my journey in game development probably. In a word, thanks everyone. I am not a planner, and the code may be a little messy. I am sorry for that.
+虽然还有很多计划中的功能没有实现，比如Web支持，移动端支持，基于索引的调色板，多图层作画，播放动画预览，区域剪切复制，画布旋转，镜像操作，左右键工具，多任务等等。出于多种原因，我决定从今天开始暂停此项目。其中一个很重要的原因就是，我发现自己的暑假所剩无几，而计划中的游戏还未进行开发，这不免有些主次颠倒。Godot真的是一个很优秀的引擎，大概率接下来我还会带着它继续我的游戏开发之旅。总之，感谢您的使用，我不是一个喜欢计划的人，代码可能有些凌乱，对于这一点我感到抱歉。"
 
 [node name="License" type="RichTextLabel" parent="VBoxContainer/TabContainer"]
 visible = false

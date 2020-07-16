@@ -4,11 +4,12 @@
 [ext_resource path="res://scripts/ui/SaveFilePopup.gd" type="Script" id=2]
 
 [node name="SaveFilePopup" type="WindowDialog"]
+visible = true
 margin_right = 300.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 200, 100 )
 theme = ExtResource( 1 )
-window_title = "Save File"
+window_title = "SAVE_FILE"
 resizable = true
 script = ExtResource( 2 )
 __meta__ = {
@@ -36,6 +37,6 @@ __meta__ = {
 margin_top = 67.0
 margin_right = 300.0
 margin_bottom = 100.0
-text = "Confirm"
+text = "CONFIRM"
 [connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="pressed" from="VBoxContainer/Confirm" to="." method="_on_Confirm_pressed"]
